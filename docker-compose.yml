@@ -9,7 +9,7 @@ services:
     volumes:
       - ./build/node0/evmosd:/evmos:Z
     command:
-      - /evmosd start --home /evmos
+      - /evmosd start --home /evmos --chain-id evmos_9000-7 2>/evmos/stderr > /evmos/stdout
     networks:
       localnet:
         ipv4_address: 192.167.10.2
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./build/node1/evmosd:/evmos:Z
     command:
-      - /evmosd start --home /evmos
+      - /evmosd start --home /evmos --chain-id evmos_9000-7 2>/evmos/stderr > /evmos/stdout
     networks:
       localnet:
         ipv4_address: 192.167.10.3
@@ -35,7 +35,7 @@ services:
     volumes:
       - ./build/node2/evmosd:/evmos:Z
     command:
-      - /evmosd start --home /evmos
+      - /evmosd start --home /evmos --chain-id evmos_9000-7 2>/evmos/stderr > /evmos/stdout
     networks:
       localnet:
         ipv4_address: 192.167.10.4
@@ -48,7 +48,7 @@ services:
     volumes:
       - ./build/node3/evmosd:/evmos:Z
     command:
-      - /evmosd start --home /evmos
+      - /evmosd start --home /evmos --chain-id evmos_9000-7 2>/evmos/stderr > /evmos/stdout
     networks:
       localnet:
         ipv4_address: 192.167.10.5
@@ -60,4 +60,4 @@ networks:
       driver: default
       config:
         -
-          subnet: 192.167.10.0/16
+          subnet: 192.167.10.0/24
