@@ -1,16 +1,25 @@
 #!/bin/bash
 
+ROOT_DIR=${ROOT_DIR:-testnet}
+CHAIN_ID=${CHAIN_ID:-zgtendermint_9000-1}
+
+# Usage: init-genesis.sh IP1,IP2,IP3 KEYRING_PASSWORD
+OS_NAME=`uname -o`
+USAGE="Usage: ${BASH_SOURCE[0]} IP1,IP2,IP3"
+if [[ "$OS_NAME" = "GNU/Linux" ]]; then
+	USAGE="$USAGE KEYRING_PASSWORD"
+fi
+
 if [[ $# -eq 0 ]]; then
 	echo "IP list not specified"
-	echo "Usage: ${BASH_SOURCE[0]} IP1,IP2,IP3"
+	echo $USAGE
 	exit 1
 fi
 
-OS_NAME=`uname -o`
 if [[ "$OS_NAME" = "GNU/Linux" ]]; then
 	if [[ $# -eq 1 ]]; then
 		echo "Keyring password not specified"
-		echo "Usage: ${BASH_SOURCE[0]} IP1,IP2,IP3 KEYRING_PASSWORD"
+		echo $USAGE
 		exit 1
 	fi
 
@@ -26,8 +35,6 @@ IFS=","; declare -a IPS=($1); unset IFS
 NUM_NODES=${#IPS[@]}
 BALANCE=$((100000000/$NUM_NODES))evmos
 STAKING=$((50000000/$NUM_NODES))evmos
-ROOT_DIR=${ROOT_DIR:-testnet}
-CHAIN_ID=${CHAIN_ID:-zgtendermint_9000-1}
 
 # Init configs
 for ((i=0; i<$NUM_NODES; i++)) do
@@ -69,7 +76,7 @@ done
 #
 # Where key stored:
 # - Windows: Windows credentials management.
-# - Linux: under HOME folder.
+# - Linux: under `--home` specified folder.
 if [[ "$OS_NAME" = "Msys" ]]; then
 	for ((i=0; i<$NUM_NODES; i++)) do
 		VALIDATOR="0gchain_9000_validator_$i"
@@ -77,6 +84,7 @@ if [[ "$OS_NAME" = "Msys" ]]; then
 		ret=`evmosd keys list --keyring-backend os -n | grep $VALIDATOR`
 		set -e
 		if [[ "$ret" = "" ]]; then
+			echo "Create validator key: $VALIDATOR"
 			evmosd keys add $VALIDATOR --keyring-backend os
 		fi
 	done

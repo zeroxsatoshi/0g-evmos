@@ -6,10 +6,15 @@ jq --version 2>/dev/null || sudo snap install jq
 make --version 2>/dev/null || sudo apt install make -y
 gcc --version 2>/dev/null || (sudo apt-get update; sudo apt install gcc -y)
 
-# Build binary under root dir
-SCRIPT_DIR=`dirname "${BASH_SOURCE[0]}"`
-cd $SCRIPT_DIR/../..
-make install
+# Build binary
+export PATH=$PATH:$(go env GOPATH)/bin
+evmosd version 2>/dev/null
+if [[ $? -ne 0 ]]; then
+    # Make under root dir
+    SCRIPT_DIR=`dirname "${BASH_SOURCE[0]}"`
+    cd $SCRIPT_DIR/../..
+    make install
 
-# Add gopath to path
-echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> .profile
+    # Add gopath to path
+    echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> .profile
+fi
