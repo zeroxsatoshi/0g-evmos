@@ -1,7 +1,7 @@
 #!/bin/bash
 
-pid=`ps -ef | grep evmos | grep -v grep | awk '{print $2}'`
+pid=`ps -ef | grep evmosd | grep -v grep | awk '{print $2}'`
 if [[ "$pid" != "" ]]; then
-    echo "Terminate evmos"
+    echo "Terminate evmosd, pid = $pid"
     kill $pid
 fi
