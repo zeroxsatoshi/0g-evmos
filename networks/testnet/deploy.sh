@@ -3,8 +3,8 @@
 function help() {
     echo "Usage: deploy.sh IP1,IP2,IP3 [options]"
     echo ""
-    echo "  -i    PEM file path"
-    echo "  -k    Keyring password to create key"
+    echo "  -i    Identity file"
+    echo "  -k    Keyring password to create key (for Linux only)"
     echo "  -n    Network (default: testnet)"
     echo "  -c    Chain ID (default: \"zgtendermint_9000-1\")"
     echo ""

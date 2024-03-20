@@ -16,5 +16,5 @@ if [[ $? -ne 0 ]]; then
     make install
 
     # Add gopath to path
-    echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> .profile
+    echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.profile
 fi
