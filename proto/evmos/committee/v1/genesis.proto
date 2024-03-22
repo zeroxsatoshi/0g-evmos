@@ -1,0 +1,47 @@
+syntax = "proto3";
+package evmos.committee.v1;
+
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/evmos/evmos/v16/x/committee/v1/types";
+
+// GenesisState defines the committee module's genesis state.
+message GenesisState {
+  option (gogoproto.goproto_getters) = false;
+
+  uint64 next_proposal_id = 1 [(gogoproto.customname) = "NextProposalID"];
+  repeated Proposal proposals = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "Proposals"
+  ];
+  repeated Vote votes = 3 [(gogoproto.nullable) = false];
+}
+
+message Proposal {
+  option (gogoproto.goproto_getters) = false;
+  option (gogoproto.goproto_stringer) = false;
+
+  uint64 id = 1 [(gogoproto.customname) = "ID"];
+  uint64 starting_height = 2;
+  uint64 voting_starting_height = 3;
+  uint64 voting_end_height = 4;
+}
+
+message Vote {
+  option (gogoproto.goproto_getters) = false;
+
+  uint64 proposal_id = 1 [(gogoproto.customname) = "ProposalID"];
+  bytes voter = 2 [
+    (cosmos_proto.scalar) = "cosmos.AddressBytes",
+    (gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ValAddress"
+  ];
+  repeated Ballot ballots = 3;
+}
+
+message Ballot {
+  uint64 id = 1 [(gogoproto.customname) = "ID"];
+  bytes content = 2;
+}

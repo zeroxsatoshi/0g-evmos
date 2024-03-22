@@ -1,0 +1,28 @@
+syntax = "proto3";
+package evmos.committee.v1;
+
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+import "evmos/committee/v1/genesis.proto";
+
+option go_package = "github.com/evmos/evmos/v16/x/committee/v1/types";
+option (gogoproto.goproto_getters_all) = false;
+
+// Query defines the gRPC querier service for committee module
+service Query {
+  // NextProposalID queries the next proposal ID of the committee module.
+  rpc NextProposalID(QueryNextProposalIDRequest) returns (QueryNextProposalIDResponse) {
+    option (google.api.http).get = "/evmos/committee/v1/next-proposal-id";
+  }
+}
+
+// QueryNextProposalIDRequest defines the request type for querying x/committee NextProposalID.
+message QueryNextProposalIDRequest {}
+
+// QueryNextProposalIDRequest defines the response type for querying x/committee NextProposalID.
+message QueryNextProposalIDResponse {
+  uint64 next_proposal_id = 1 [(gogoproto.customname) = "NextProposalID"];
+}

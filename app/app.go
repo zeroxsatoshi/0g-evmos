@@ -142,6 +142,9 @@ import (
 	"github.com/evmos/evmos/v16/precompiles/common"
 	srvflags "github.com/evmos/evmos/v16/server/flags"
 	evmostypes "github.com/evmos/evmos/v16/types"
+	committee "github.com/evmos/evmos/v16/x/committee/v1"
+	committeekeeper "github.com/evmos/evmos/v16/x/committee/v1/keeper"
+	committeetypes "github.com/evmos/evmos/v16/x/committee/v1/types"
 	"github.com/evmos/evmos/v16/x/epochs"
 	epochskeeper "github.com/evmos/evmos/v16/x/epochs/keeper"
 	epochstypes "github.com/evmos/evmos/v16/x/epochs/types"
@@ -240,6 +243,7 @@ var (
 		revenue.AppModuleBasic{},
 		consensus.AppModuleBasic{},
 		incentives.AppModuleBasic{},
+		committee.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -313,6 +317,7 @@ type Evmos struct {
 	EpochsKeeper    epochskeeper.Keeper
 	VestingKeeper   vestingkeeper.Keeper
 	RevenueKeeper   revenuekeeper.Keeper
+	CommitteeKeeper committeekeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -612,6 +617,11 @@ func NewEvmos(
 	// If evidence needs to be handled for the app, set routes in router here and seal
 	app.EvidenceKeeper = *evidenceKeeper
 
+	// Evmos Keeper
+	app.CommitteeKeeper = committeekeeper.NewKeeper(
+		keys[committeetypes.StoreKey], appCodec, stakingKeeper,
+	)
+
 	/****  Module Options ****/
 
 	// NOTE: Any module instantiated in the module manager that is later modified
@@ -652,6 +662,8 @@ func NewEvmos(
 		vesting.NewAppModule(app.VestingKeeper, app.AccountKeeper, app.BankKeeper, app.StakingKeeper),
 		revenue.NewAppModule(app.RevenueKeeper, app.AccountKeeper,
 			app.GetSubspace(revenuetypes.ModuleName)),
+
+		committee.NewAppModule(app.CommitteeKeeper, app.StakingKeeper),
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -687,6 +699,7 @@ func NewEvmos(
 		erc20types.ModuleName,
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		committeetypes.ModuleName,
 	)
 
 	// NOTE: fee market module must go last in order to retrieve the block gas used.
@@ -718,6 +731,7 @@ func NewEvmos(
 		erc20types.ModuleName,
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		committeetypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -756,6 +770,7 @@ func NewEvmos(
 		epochstypes.ModuleName,
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		committeetypes.ModuleName,
 	)
 
 	app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
