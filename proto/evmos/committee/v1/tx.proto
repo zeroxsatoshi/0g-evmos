@@ -1,0 +1,46 @@
+syntax = "proto3";
+package evmos.committee.v1;
+
+import "cosmos_proto/cosmos.proto";
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+import "evmos/committee/v1/genesis.proto";
+
+option go_package = "github.com/evmos/evmos/v16/x/committee/v1/types";
+option (gogoproto.goproto_getters_all) = false;
+
+// Msg defines the committee Msg service
+service Msg {
+    rpc Register(MsgRegister) returns (MsgRegisterResponse);
+    rpc Propose(MsgPropose) returns (MsgProposeResponse);
+    rpc Vote(MsgVote) returns (MsgVoteResponse);
+}
+
+message MsgRegister {
+    string initiator = 1;
+    string voter = 2;
+    bytes key = 3;
+}
+
+message MsgRegisterResponse {}
+
+message MsgPropose {
+    string initiator = 1;
+    string proposer = 2;
+    uint64 starting_height = 3;
+    uint64 voting_start_height = 4;
+    uint64 voting_end_height = 5;
+}
+
+message MsgProposeResponse {
+  uint64 proposal_id = 1 [(gogoproto.customname) = "ProposalID"];
+}
+
+message MsgVote {
+    string initiator = 1;
+    uint64 proposal_id = 2 [(gogoproto.customname) = "ProposalID"];
+    string voter = 3;
+    repeated Ballot ballots = 4;
+}
+
+message MsgVoteResponse {}
