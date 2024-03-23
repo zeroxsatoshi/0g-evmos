@@ -152,18 +152,6 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
-	//   // Committee queries a committee based on committee ID.
-	//   rpc Committee(QueryCommitteeRequest) returns (QueryCommitteeResponse) {
-	//     option (google.api.http).get = "/evmos/committee/v1/committees/{committee_id}";
-	//   }
-	//   // Proposals queries proposals based on committee ID.
-	//   rpc Proposals(QueryProposalsRequest) returns (QueryProposalsResponse) {
-	//     option (google.api.http).get = "/kava/committee/v1beta1/proposals";
-	//   }
-	//   // Deposits queries a proposal based on proposal ID.
-	//   rpc Proposal(QueryProposalRequest) returns (QueryProposalResponse) {
-	//     option (google.api.http).get = "/kava/committee/v1beta1/proposals/{proposal_id}";
-	//   }
 	// NextProposalID queries the next proposal ID of the committee module.
 	NextProposalID(ctx context.Context, in *QueryNextProposalIDRequest, opts ...grpc.CallOption) (*QueryNextProposalIDResponse, error)
 }
@@ -187,18 +175,6 @@ func (c *queryClient) NextProposalID(ctx context.Context, in *QueryNextProposalI
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
-	//   // Committee queries a committee based on committee ID.
-	//   rpc Committee(QueryCommitteeRequest) returns (QueryCommitteeResponse) {
-	//     option (google.api.http).get = "/evmos/committee/v1/committees/{committee_id}";
-	//   }
-	//   // Proposals queries proposals based on committee ID.
-	//   rpc Proposals(QueryProposalsRequest) returns (QueryProposalsResponse) {
-	//     option (google.api.http).get = "/kava/committee/v1beta1/proposals";
-	//   }
-	//   // Deposits queries a proposal based on proposal ID.
-	//   rpc Proposal(QueryProposalRequest) returns (QueryProposalResponse) {
-	//     option (google.api.http).get = "/kava/committee/v1beta1/proposals/{proposal_id}";
-	//   }
 	// NextProposalID queries the next proposal ID of the committee module.
 	NextProposalID(context.Context, *QueryNextProposalIDRequest) (*QueryNextProposalIDResponse, error)
 }
