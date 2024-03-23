@@ -17,19 +17,17 @@ service Msg {
 }
 
 message MsgRegister {
-    string initiator = 1;
-    string voter = 2;
-    bytes key = 3;
+    string voter = 1;
+    bytes key = 2;
 }
 
 message MsgRegisterResponse {}
 
 message MsgPropose {
-    string initiator = 1;
-    string proposer = 2;
-    uint64 starting_height = 3;
-    uint64 voting_start_height = 4;
-    uint64 voting_end_height = 5;
+    string proposer = 1;
+    uint64 starting_height = 2;
+    uint64 voting_start_height = 3;
+    uint64 voting_end_height = 4;
 }
 
 message MsgProposeResponse {
@@ -37,10 +35,9 @@ message MsgProposeResponse {
 }
 
 message MsgVote {
-    string initiator = 1;
-    uint64 proposal_id = 2 [(gogoproto.customname) = "ProposalID"];
-    string voter = 3;
-    repeated Ballot ballots = 4;
+    uint64 proposal_id = 1 [(gogoproto.customname) = "ProposalID"];
+    string voter = 2;
+    repeated Ballot ballots = 3;
 }
 
 message MsgVoteResponse {}
