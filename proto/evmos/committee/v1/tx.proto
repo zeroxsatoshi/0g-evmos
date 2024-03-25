@@ -12,7 +12,6 @@ option (gogoproto.goproto_getters_all) = false;
 // Msg defines the committee Msg service
 service Msg {
     rpc Register(MsgRegister) returns (MsgRegisterResponse);
-    rpc Propose(MsgPropose) returns (MsgProposeResponse);
     rpc Vote(MsgVote) returns (MsgVoteResponse);
 }
 
@@ -23,19 +22,8 @@ message MsgRegister {
 
 message MsgRegisterResponse {}
 
-message MsgPropose {
-    string proposer = 1;
-    uint64 starting_height = 2;
-    uint64 voting_start_height = 3;
-    uint64 voting_end_height = 4;
-}
-
-message MsgProposeResponse {
-  uint64 proposal_id = 1 [(gogoproto.customname) = "ProposalID"];
-}
-
 message MsgVote {
-    uint64 proposal_id = 1 [(gogoproto.customname) = "ProposalID"];
+    uint64 committee_id = 1 [(gogoproto.customname) = "CommitteeID"];
     string voter = 2;
     repeated Ballot ballots = 3;
 }

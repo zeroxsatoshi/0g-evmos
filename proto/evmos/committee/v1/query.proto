@@ -13,16 +13,22 @@ option (gogoproto.goproto_getters_all) = false;
 
 // Query defines the gRPC querier service for committee module
 service Query {
-  // NextProposalID queries the next proposal ID of the committee module.
-  rpc NextProposalID(QueryNextProposalIDRequest) returns (QueryNextProposalIDResponse) {
-    option (google.api.http).get = "/evmos/committee/v1/next-proposal-id";
+  rpc CurrentCommitteeID(QueryCurrentCommitteeIDRequest) returns (QueryCurrentCommitteeIDResponse) {
+    option (google.api.http).get = "/evmos/committee/v1/current-committee-id";
+  }
+  rpc RegisteredVoters(QueryRegisteredVotersRequest) returns (QueryRegisteredVotersResponse) {
+    option (google.api.http).get = "/evmos/committee/v1/registered-voters";
   }
 }
 
-// QueryNextProposalIDRequest defines the request type for querying x/committee NextProposalID.
-message QueryNextProposalIDRequest {}
+message QueryCurrentCommitteeIDRequest {}
 
-// QueryNextProposalIDRequest defines the response type for querying x/committee NextProposalID.
-message QueryNextProposalIDResponse {
-  uint64 next_proposal_id = 1 [(gogoproto.customname) = "NextProposalID"];
+message QueryCurrentCommitteeIDResponse {
+  uint64 current_committee_id = 1 [(gogoproto.customname) = "CurrentCommitteeID"];
+}
+
+message QueryRegisteredVotersRequest {}
+
+message QueryRegisteredVotersResponse {
+  repeated string voters = 1;
 }

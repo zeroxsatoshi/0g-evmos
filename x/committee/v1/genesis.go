@@ -15,28 +15,36 @@ func InitGenesis(ctx sdk.Context, keeper keeper.Keeper, gs types.GenesisState) {
 		panic(fmt.Sprintf("failed to validate %s genesis state: %s", types.ModuleName, err))
 	}
 
-	keeper.SetNextProposalID(ctx, gs.NextProposalID)
+	keeper.SetCurrentCommitteeID(ctx, gs.CurrentCommitteeID)
 
-	for _, p := range gs.Proposals {
-		keeper.SetProposal(ctx, p)
-	}
-	for _, v := range gs.Votes {
-		keeper.SetVote(ctx, v)
+	for _, p := range gs.Committees {
+		keeper.SetCommittee(ctx, p)
 	}
 }
 
 // ExportGenesis returns a GenesisState for a given context and keeper.
 func ExportGenesis(ctx sdk.Context, keeper keeper.Keeper) *types.GenesisState {
-	nextID, err := keeper.GetNextProposalID(ctx)
+	startHeight, err := keeper.GetVotingStartHeight(ctx)
 	if err != nil {
 		panic(err)
 	}
-	proposals := keeper.GetProposals(ctx)
-	votes := keeper.GetVotes(ctx)
+
+	period, err := keeper.GetVotingPeriod(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	currentID, err := keeper.GetCurrentCommitteeID(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	committees := keeper.GetCommittees(ctx)
 
 	return types.NewGenesisState(
-		nextID,
-		proposals,
-		votes,
+		startHeight,
+		period,
+		currentID,
+		committees,
 	)
 }

@@ -11,29 +11,25 @@ option go_package = "github.com/evmos/evmos/v16/x/committee/v1/types";
 // GenesisState defines the committee module's genesis state.
 message GenesisState {
   option (gogoproto.goproto_getters) = false;
-
-  uint64 next_proposal_id = 1 [(gogoproto.customname) = "NextProposalID"];
-  repeated Proposal proposals = 2 [
-    (gogoproto.nullable) = false,
-    (gogoproto.castrepeated) = "Proposals"
-  ];
-  repeated Vote votes = 3 [(gogoproto.nullable) = false];
+  
+  uint64 voting_start_height = 1;
+  uint64 voting_period = 2;
+  uint64 current_committee_id = 3 [(gogoproto.customname) = "CurrentCommitteeID"];
+  repeated Committee committees = 4 [(gogoproto.nullable) = false];
 }
 
-message Proposal {
-  option (gogoproto.goproto_getters) = false;
-  option (gogoproto.goproto_stringer) = false;
-
+message Committee {
   uint64 id = 1 [(gogoproto.customname) = "ID"];
-  uint64 starting_height = 2;
-  uint64 voting_starting_height = 3;
-  uint64 voting_end_height = 4;
+  uint64 voting_start_height = 2;
+  uint64 start_height = 3;
+  uint64 end_height = 4;
+  repeated Vote votes = 5 [(gogoproto.nullable) = false];  
 }
 
 message Vote {
   option (gogoproto.goproto_getters) = false;
 
-  uint64 proposal_id = 1 [(gogoproto.customname) = "ProposalID"];
+  uint64 committee_id = 1 [(gogoproto.customname) = "CommitteeID"];
   bytes voter = 2 [
     (cosmos_proto.scalar) = "cosmos.AddressBytes",
     (gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ValAddress"

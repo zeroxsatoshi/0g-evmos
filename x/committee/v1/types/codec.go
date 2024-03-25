@@ -20,7 +20,6 @@ var (
 const (
 	// Amino names
 	registerName = "evmos/committee/MsgRegister"
-	proposeName  = "evmos/committee/MsgPropose"
 	voteName     = "evmos/committee/MsgVote"
 )
 
@@ -35,7 +34,6 @@ func RegisterInterfaces(registry codectypes.InterfaceRegistry) {
 	registry.RegisterImplementations(
 		(*sdk.Msg)(nil),
 		&MsgRegister{},
-		&MsgPropose{},
 		&MsgVote{},
 	)
 
@@ -45,6 +43,5 @@ func RegisterInterfaces(registry codectypes.InterfaceRegistry) {
 // RegisterLegacyAminoCodec required for EIP-712
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgRegister{}, registerName, nil)
-	cdc.RegisterConcrete(&MsgPropose{}, proposeName, nil)
 	cdc.RegisterConcrete(&MsgVote{}, voteName, nil)
 }

@@ -2,10 +2,8 @@ package types
 
 // Module event types
 const (
-	EventTypeProposalSubmit = "proposal_submit"
-	EventTypeProposalClose  = "proposal_close"
-	EventTypeProposalVote   = "proposal_vote"
-	EventTypeRegisterVoter  = "register_voter"
+	EventTypeRegister = "register"
+	EventTypeVote     = "vote"
 
 	AttributeValueCategory          = "committee"
 	AttributeKeyCommitteeID         = "committee_id"

@@ -32,22 +32,21 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// QueryNextProposalIDRequest defines the request type for querying x/committee NextProposalID.
-type QueryNextProposalIDRequest struct {
+type QueryCurrentCommitteeIDRequest struct {
 }
 
-func (m *QueryNextProposalIDRequest) Reset()         { *m = QueryNextProposalIDRequest{} }
-func (m *QueryNextProposalIDRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryNextProposalIDRequest) ProtoMessage()    {}
-func (*QueryNextProposalIDRequest) Descriptor() ([]byte, []int) {
+func (m *QueryCurrentCommitteeIDRequest) Reset()         { *m = QueryCurrentCommitteeIDRequest{} }
+func (m *QueryCurrentCommitteeIDRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryCurrentCommitteeIDRequest) ProtoMessage()    {}
+func (*QueryCurrentCommitteeIDRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e4b40beb2cbb1e09, []int{0}
 }
-func (m *QueryNextProposalIDRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryCurrentCommitteeIDRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryNextProposalIDRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryCurrentCommitteeIDRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryNextProposalIDRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryCurrentCommitteeIDRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -57,35 +56,34 @@ func (m *QueryNextProposalIDRequest) XXX_Marshal(b []byte, deterministic bool) (
 		return b[:n], nil
 	}
 }
-func (m *QueryNextProposalIDRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryNextProposalIDRequest.Merge(m, src)
+func (m *QueryCurrentCommitteeIDRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryCurrentCommitteeIDRequest.Merge(m, src)
 }
-func (m *QueryNextProposalIDRequest) XXX_Size() int {
+func (m *QueryCurrentCommitteeIDRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryNextProposalIDRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryNextProposalIDRequest.DiscardUnknown(m)
+func (m *QueryCurrentCommitteeIDRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryCurrentCommitteeIDRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryNextProposalIDRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryCurrentCommitteeIDRequest proto.InternalMessageInfo
 
-// QueryNextProposalIDRequest defines the response type for querying x/committee NextProposalID.
-type QueryNextProposalIDResponse struct {
-	NextProposalID uint64 `protobuf:"varint,1,opt,name=next_proposal_id,json=nextProposalId,proto3" json:"next_proposal_id,omitempty"`
+type QueryCurrentCommitteeIDResponse struct {
+	CurrentCommitteeID uint64 `protobuf:"varint,1,opt,name=current_committee_id,json=currentCommitteeId,proto3" json:"current_committee_id,omitempty"`
 }
 
-func (m *QueryNextProposalIDResponse) Reset()         { *m = QueryNextProposalIDResponse{} }
-func (m *QueryNextProposalIDResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryNextProposalIDResponse) ProtoMessage()    {}
-func (*QueryNextProposalIDResponse) Descriptor() ([]byte, []int) {
+func (m *QueryCurrentCommitteeIDResponse) Reset()         { *m = QueryCurrentCommitteeIDResponse{} }
+func (m *QueryCurrentCommitteeIDResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryCurrentCommitteeIDResponse) ProtoMessage()    {}
+func (*QueryCurrentCommitteeIDResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e4b40beb2cbb1e09, []int{1}
 }
-func (m *QueryNextProposalIDResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryCurrentCommitteeIDResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryNextProposalIDResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryCurrentCommitteeIDResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryNextProposalIDResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryCurrentCommitteeIDResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -95,49 +93,128 @@ func (m *QueryNextProposalIDResponse) XXX_Marshal(b []byte, deterministic bool) 
 		return b[:n], nil
 	}
 }
-func (m *QueryNextProposalIDResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryNextProposalIDResponse.Merge(m, src)
+func (m *QueryCurrentCommitteeIDResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryCurrentCommitteeIDResponse.Merge(m, src)
 }
-func (m *QueryNextProposalIDResponse) XXX_Size() int {
+func (m *QueryCurrentCommitteeIDResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryNextProposalIDResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryNextProposalIDResponse.DiscardUnknown(m)
+func (m *QueryCurrentCommitteeIDResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryCurrentCommitteeIDResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryNextProposalIDResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryCurrentCommitteeIDResponse proto.InternalMessageInfo
+
+type QueryRegisteredVotersRequest struct {
+}
+
+func (m *QueryRegisteredVotersRequest) Reset()         { *m = QueryRegisteredVotersRequest{} }
+func (m *QueryRegisteredVotersRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryRegisteredVotersRequest) ProtoMessage()    {}
+func (*QueryRegisteredVotersRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e4b40beb2cbb1e09, []int{2}
+}
+func (m *QueryRegisteredVotersRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryRegisteredVotersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryRegisteredVotersRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryRegisteredVotersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRegisteredVotersRequest.Merge(m, src)
+}
+func (m *QueryRegisteredVotersRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryRegisteredVotersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRegisteredVotersRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryRegisteredVotersRequest proto.InternalMessageInfo
+
+type QueryRegisteredVotersResponse struct {
+	Voters []string `protobuf:"bytes,1,rep,name=voters,proto3" json:"voters,omitempty"`
+}
+
+func (m *QueryRegisteredVotersResponse) Reset()         { *m = QueryRegisteredVotersResponse{} }
+func (m *QueryRegisteredVotersResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryRegisteredVotersResponse) ProtoMessage()    {}
+func (*QueryRegisteredVotersResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e4b40beb2cbb1e09, []int{3}
+}
+func (m *QueryRegisteredVotersResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryRegisteredVotersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryRegisteredVotersResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryRegisteredVotersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryRegisteredVotersResponse.Merge(m, src)
+}
+func (m *QueryRegisteredVotersResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryRegisteredVotersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryRegisteredVotersResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryRegisteredVotersResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*QueryNextProposalIDRequest)(nil), "evmos.committee.v1.QueryNextProposalIDRequest")
-	proto.RegisterType((*QueryNextProposalIDResponse)(nil), "evmos.committee.v1.QueryNextProposalIDResponse")
+	proto.RegisterType((*QueryCurrentCommitteeIDRequest)(nil), "evmos.committee.v1.QueryCurrentCommitteeIDRequest")
+	proto.RegisterType((*QueryCurrentCommitteeIDResponse)(nil), "evmos.committee.v1.QueryCurrentCommitteeIDResponse")
+	proto.RegisterType((*QueryRegisteredVotersRequest)(nil), "evmos.committee.v1.QueryRegisteredVotersRequest")
+	proto.RegisterType((*QueryRegisteredVotersResponse)(nil), "evmos.committee.v1.QueryRegisteredVotersResponse")
 }
 
 func init() { proto.RegisterFile("evmos/committee/v1/query.proto", fileDescriptor_e4b40beb2cbb1e09) }
 
 var fileDescriptor_e4b40beb2cbb1e09 = []byte{
-	// 345 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x50, 0x3f, 0x4b, 0x3b, 0x41,
-	0x10, 0xbd, 0xfd, 0xf1, 0xd3, 0xe2, 0x8a, 0x20, 0x8b, 0x85, 0x39, 0xc3, 0x26, 0x04, 0x11, 0x0b,
-	0x73, 0x4b, 0x14, 0xac, 0xac, 0x82, 0x8d, 0x85, 0xa2, 0x96, 0x5a, 0x84, 0x4b, 0x32, 0x9e, 0x0b,
-	0xb9, 0x9d, 0x4b, 0x76, 0xee, 0x48, 0x5a, 0x3f, 0x81, 0xe0, 0x07, 0xb0, 0xf6, 0x9b, 0xa4, 0x0c,
-	0xd8, 0x58, 0x89, 0x5e, 0xfc, 0x20, 0x72, 0x7f, 0x22, 0x1a, 0x23, 0xd8, 0x2c, 0x3b, 0xf3, 0xde,
-	0xbc, 0x79, 0xf3, 0x6c, 0x01, 0x71, 0x80, 0x46, 0x76, 0x31, 0x08, 0x14, 0x11, 0x80, 0x8c, 0x9b,
-	0x72, 0x10, 0xc1, 0x70, 0xec, 0x86, 0x43, 0x24, 0xe4, 0x3c, 0xc3, 0xdd, 0x4f, 0xdc, 0x8d, 0x9b,
-	0x4e, 0xb9, 0x8b, 0x26, 0x40, 0xd3, 0xce, 0x18, 0x32, 0x2f, 0x72, 0xba, 0xb3, 0xee, 0xa3, 0x8f,
-	0x79, 0x3f, 0xfd, 0x15, 0xdd, 0x8a, 0x8f, 0xe8, 0xf7, 0x41, 0x7a, 0xa1, 0x92, 0x9e, 0xd6, 0x48,
-	0x1e, 0x29, 0xd4, 0xf3, 0x99, 0x72, 0x81, 0x66, 0x55, 0x27, 0xba, 0x96, 0x9e, 0x2e, 0xb6, 0x3b,
-	0xd5, 0x45, 0x88, 0x54, 0x00, 0x86, 0xbc, 0x20, 0x2c, 0x08, 0xb5, 0x25, 0xf6, 0x7d, 0xd0, 0x60,
-	0x54, 0xa1, 0x5e, 0xaf, 0xd8, 0xce, 0x79, 0x7a, 0xcf, 0x29, 0x8c, 0xe8, 0x6c, 0x88, 0x21, 0x1a,
-	0xaf, 0x7f, 0x7c, 0x74, 0x01, 0x83, 0x08, 0x0c, 0xd5, 0xaf, 0xec, 0xcd, 0xa5, 0xa8, 0x09, 0x51,
-	0x1b, 0xe0, 0x87, 0xf6, 0x9a, 0x86, 0x11, 0xa5, 0x97, 0x66, 0x50, 0x5b, 0xf5, 0x36, 0x58, 0x8d,
-	0xed, 0xfc, 0x6f, 0xf1, 0xe4, 0xa5, 0x5a, 0x5a, 0x98, 0x2a, 0xe9, 0xaf, 0x75, 0x6f, 0xef, 0x91,
-	0xd9, 0x2b, 0x99, 0x3a, 0x7f, 0x60, 0xf6, 0x02, 0x99, 0xbb, 0xee, 0xcf, 0x64, 0xdd, 0xdf, 0x9d,
-	0x3a, 0xf2, 0xcf, 0xfc, 0xdc, 0x7b, 0x7d, 0xf7, 0xf6, 0xe9, 0xfd, 0xfe, 0xdf, 0x36, 0xdf, 0x92,
-	0x4b, 0x32, 0x4a, 0x9d, 0x36, 0xe6, 0x57, 0x35, 0x54, 0xaf, 0x75, 0x32, 0x79, 0x13, 0xd6, 0x24,
-	0x11, 0x6c, 0x9a, 0x08, 0xf6, 0x9a, 0x08, 0x76, 0x37, 0x13, 0xd6, 0x74, 0x26, 0xac, 0xe7, 0x99,
-	0xb0, 0x2e, 0xa5, 0xaf, 0xe8, 0x26, 0xea, 0xa4, 0xcb, 0x0b, 0xb5, 0xfc, 0x8d, 0x9b, 0x07, 0x72,
-	0xf4, 0x5d, 0x99, 0xc6, 0x21, 0x98, 0xce, 0x6a, 0x16, 0xfe, 0xfe, 0x47, 0x00, 0x00, 0x00, 0xff,
-	0xff, 0x47, 0x3e, 0x17, 0xd8, 0x5f, 0x02, 0x00, 0x00,
+	// 416 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x52, 0xc1, 0xaa, 0xd3, 0x40,
+	0x14, 0xcd, 0x3c, 0xf5, 0x81, 0xb3, 0x92, 0xe1, 0xf1, 0x78, 0x2f, 0x3c, 0xa7, 0x21, 0x20, 0x16,
+	0x21, 0x99, 0xa6, 0x05, 0xdd, 0xb7, 0x2e, 0x74, 0xe1, 0xc2, 0x2e, 0x5c, 0xb8, 0x29, 0x69, 0x72,
+	0x8d, 0x83, 0x26, 0x93, 0x66, 0x26, 0xc1, 0x6e, 0xfd, 0x02, 0xc1, 0x7f, 0x70, 0xeb, 0x6f, 0x74,
+	0x59, 0x70, 0xe3, 0x4a, 0x34, 0xf5, 0x43, 0xa4, 0x93, 0x69, 0xc0, 0x9a, 0x08, 0xdd, 0x84, 0xdc,
+	0x7b, 0xce, 0xb9, 0xe7, 0xcc, 0x9d, 0xc1, 0x14, 0xaa, 0x54, 0x48, 0x16, 0x89, 0x34, 0xe5, 0x4a,
+	0x01, 0xb0, 0x2a, 0x60, 0xab, 0x12, 0x8a, 0xb5, 0x9f, 0x17, 0x42, 0x09, 0x42, 0x34, 0xee, 0xb7,
+	0xb8, 0x5f, 0x05, 0xf6, 0x75, 0x24, 0x64, 0x2a, 0xe4, 0x42, 0x33, 0x58, 0x53, 0x34, 0x74, 0xfb,
+	0x22, 0x11, 0x89, 0x68, 0xfa, 0xfb, 0x3f, 0xd3, 0xbd, 0x49, 0x84, 0x48, 0xde, 0x03, 0x0b, 0x73,
+	0xce, 0xc2, 0x2c, 0x13, 0x2a, 0x54, 0x5c, 0x64, 0x07, 0xcd, 0xb5, 0x41, 0x75, 0xb5, 0x2c, 0xdf,
+	0xb0, 0x30, 0x33, 0xee, 0xf6, 0xe0, 0x18, 0x52, 0x3c, 0x05, 0xa9, 0xc2, 0x34, 0x37, 0x04, 0xa7,
+	0x23, 0x7e, 0x02, 0x19, 0x48, 0x6e, 0xa6, 0xbb, 0x0e, 0xa6, 0x2f, 0xf7, 0xe7, 0x99, 0x95, 0x45,
+	0x01, 0x99, 0x9a, 0x1d, 0x98, 0xcf, 0x9f, 0xce, 0x61, 0x55, 0x82, 0x54, 0xee, 0x3b, 0x3c, 0xe8,
+	0x65, 0xc8, 0x5c, 0x64, 0x12, 0xc8, 0x33, 0x7c, 0x11, 0x35, 0xe8, 0xa2, 0xb5, 0x5a, 0xf0, 0xf8,
+	0x0a, 0x39, 0x68, 0x78, 0x7b, 0x7a, 0x59, 0xff, 0x18, 0x90, 0x0e, 0x35, 0x89, 0x8e, 0x7b, 0xb1,
+	0x4b, 0xf1, 0x8d, 0x36, 0x9b, 0x43, 0xc2, 0xa5, 0x82, 0x02, 0xe2, 0x57, 0x42, 0x41, 0x21, 0x0f,
+	0x61, 0x9e, 0xe0, 0xfb, 0x3d, 0xb8, 0x89, 0x72, 0x89, 0xcf, 0x2b, 0xdd, 0xb9, 0x42, 0xce, 0xad,
+	0xe1, 0xdd, 0xb9, 0xa9, 0xc6, 0xf5, 0x19, 0xbe, 0xa3, 0x95, 0xe4, 0x2b, 0xc2, 0x1d, 0x69, 0xc8,
+	0xd8, 0xff, 0xf7, 0x2a, 0xfd, 0xff, 0xaf, 0xc6, 0x9e, 0x9c, 0xa4, 0x69, 0x12, 0xba, 0xa3, 0x8f,
+	0xdf, 0x7e, 0x7f, 0x3e, 0x7b, 0x44, 0x86, 0xac, 0xe3, 0x72, 0xcc, 0x4a, 0xbc, 0xb6, 0xe9, 0xf1,
+	0x98, 0x7c, 0x41, 0xf8, 0xde, 0xf1, 0x81, 0xc9, 0xa8, 0xd7, 0xbb, 0x67, 0x77, 0x76, 0x70, 0x82,
+	0xc2, 0x64, 0xf5, 0x74, 0xd6, 0x87, 0xe4, 0x41, 0x57, 0xd6, 0xa2, 0x55, 0x79, 0xcd, 0x92, 0xa7,
+	0x2f, 0x36, 0xbf, 0xa8, 0xb5, 0xa9, 0x29, 0xda, 0xd6, 0x14, 0xfd, 0xac, 0x29, 0xfa, 0xb4, 0xa3,
+	0xd6, 0x76, 0x47, 0xad, 0xef, 0x3b, 0x6a, 0xbd, 0x66, 0x09, 0x57, 0x6f, 0xcb, 0xe5, 0xde, 0xdf,
+	0x8c, 0x6b, 0xbe, 0x55, 0xf0, 0x98, 0x7d, 0xf8, 0x7b, 0xb4, 0x5a, 0xe7, 0x20, 0x97, 0xe7, 0xfa,
+	0x89, 0x4e, 0xfe, 0x04, 0x00, 0x00, 0xff, 0xff, 0x3a, 0xbf, 0xcf, 0x1c, 0x85, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -152,8 +229,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
-	// NextProposalID queries the next proposal ID of the committee module.
-	NextProposalID(ctx context.Context, in *QueryNextProposalIDRequest, opts ...grpc.CallOption) (*QueryNextProposalIDResponse, error)
+	CurrentCommitteeID(ctx context.Context, in *QueryCurrentCommitteeIDRequest, opts ...grpc.CallOption) (*QueryCurrentCommitteeIDResponse, error)
+	RegisteredVoters(ctx context.Context, in *QueryRegisteredVotersRequest, opts ...grpc.CallOption) (*QueryRegisteredVotersResponse, error)
 }
 
 type queryClient struct {
@@ -164,9 +241,18 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
 }
 
-func (c *queryClient) NextProposalID(ctx context.Context, in *QueryNextProposalIDRequest, opts ...grpc.CallOption) (*QueryNextProposalIDResponse, error) {
-	out := new(QueryNextProposalIDResponse)
-	err := c.cc.Invoke(ctx, "/evmos.committee.v1.Query/NextProposalID", in, out, opts...)
+func (c *queryClient) CurrentCommitteeID(ctx context.Context, in *QueryCurrentCommitteeIDRequest, opts ...grpc.CallOption) (*QueryCurrentCommitteeIDResponse, error) {
+	out := new(QueryCurrentCommitteeIDResponse)
+	err := c.cc.Invoke(ctx, "/evmos.committee.v1.Query/CurrentCommitteeID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) RegisteredVoters(ctx context.Context, in *QueryRegisteredVotersRequest, opts ...grpc.CallOption) (*QueryRegisteredVotersResponse, error) {
+	out := new(QueryRegisteredVotersResponse)
+	err := c.cc.Invoke(ctx, "/evmos.committee.v1.Query/RegisteredVoters", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -175,36 +261,57 @@ func (c *queryClient) NextProposalID(ctx context.Context, in *QueryNextProposalI
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
-	// NextProposalID queries the next proposal ID of the committee module.
-	NextProposalID(context.Context, *QueryNextProposalIDRequest) (*QueryNextProposalIDResponse, error)
+	CurrentCommitteeID(context.Context, *QueryCurrentCommitteeIDRequest) (*QueryCurrentCommitteeIDResponse, error)
+	RegisteredVoters(context.Context, *QueryRegisteredVotersRequest) (*QueryRegisteredVotersResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
 type UnimplementedQueryServer struct {
 }
 
-func (*UnimplementedQueryServer) NextProposalID(ctx context.Context, req *QueryNextProposalIDRequest) (*QueryNextProposalIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method NextProposalID not implemented")
+func (*UnimplementedQueryServer) CurrentCommitteeID(ctx context.Context, req *QueryCurrentCommitteeIDRequest) (*QueryCurrentCommitteeIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CurrentCommitteeID not implemented")
+}
+func (*UnimplementedQueryServer) RegisteredVoters(ctx context.Context, req *QueryRegisteredVotersRequest) (*QueryRegisteredVotersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisteredVoters not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
 }
 
-func _Query_NextProposalID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryNextProposalIDRequest)
+func _Query_CurrentCommitteeID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCurrentCommitteeIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).NextProposalID(ctx, in)
+		return srv.(QueryServer).CurrentCommitteeID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/evmos.committee.v1.Query/NextProposalID",
+		FullMethod: "/evmos.committee.v1.Query/CurrentCommitteeID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).NextProposalID(ctx, req.(*QueryNextProposalIDRequest))
+		return srv.(QueryServer).CurrentCommitteeID(ctx, req.(*QueryCurrentCommitteeIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_RegisteredVoters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryRegisteredVotersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).RegisteredVoters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/evmos.committee.v1.Query/RegisteredVoters",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).RegisteredVoters(ctx, req.(*QueryRegisteredVotersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -214,15 +321,19 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "NextProposalID",
-			Handler:    _Query_NextProposalID_Handler,
+			MethodName: "CurrentCommitteeID",
+			Handler:    _Query_CurrentCommitteeID_Handler,
+		},
+		{
+			MethodName: "RegisteredVoters",
+			Handler:    _Query_RegisteredVoters_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "evmos/committee/v1/query.proto",
 }
 
-func (m *QueryNextProposalIDRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryCurrentCommitteeIDRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -232,12 +343,12 @@ func (m *QueryNextProposalIDRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryNextProposalIDRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryCurrentCommitteeIDRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryNextProposalIDRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryCurrentCommitteeIDRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -245,7 +356,7 @@ func (m *QueryNextProposalIDRequest) MarshalToSizedBuffer(dAtA []byte) (int, err
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryNextProposalIDResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryCurrentCommitteeIDResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -255,20 +366,75 @@ func (m *QueryNextProposalIDResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryNextProposalIDResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryCurrentCommitteeIDResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryNextProposalIDResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryCurrentCommitteeIDResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.NextProposalID != 0 {
-		i = encodeVarintQuery(dAtA, i, uint64(m.NextProposalID))
+	if m.CurrentCommitteeID != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.CurrentCommitteeID))
 		i--
 		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryRegisteredVotersRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryRegisteredVotersRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryRegisteredVotersRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryRegisteredVotersResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryRegisteredVotersResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryRegisteredVotersResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Voters) > 0 {
+		for iNdEx := len(m.Voters) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Voters[iNdEx])
+			copy(dAtA[i:], m.Voters[iNdEx])
+			i = encodeVarintQuery(dAtA, i, uint64(len(m.Voters[iNdEx])))
+			i--
+			dAtA[i] = 0xa
+		}
 	}
 	return len(dAtA) - i, nil
 }
@@ -284,7 +450,7 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *QueryNextProposalIDRequest) Size() (n int) {
+func (m *QueryCurrentCommitteeIDRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -293,14 +459,38 @@ func (m *QueryNextProposalIDRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryNextProposalIDResponse) Size() (n int) {
+func (m *QueryCurrentCommitteeIDResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if m.NextProposalID != 0 {
-		n += 1 + sovQuery(uint64(m.NextProposalID))
+	if m.CurrentCommitteeID != 0 {
+		n += 1 + sovQuery(uint64(m.CurrentCommitteeID))
+	}
+	return n
+}
+
+func (m *QueryRegisteredVotersRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *QueryRegisteredVotersResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Voters) > 0 {
+		for _, s := range m.Voters {
+			l = len(s)
+			n += 1 + l + sovQuery(uint64(l))
+		}
 	}
 	return n
 }
@@ -311,7 +501,7 @@ func sovQuery(x uint64) (n int) {
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *QueryNextProposalIDRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryCurrentCommitteeIDRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -334,10 +524,10 @@ func (m *QueryNextProposalIDRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryNextProposalIDRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryCurrentCommitteeIDRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryNextProposalIDRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryCurrentCommitteeIDRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -361,7 +551,7 @@ func (m *QueryNextProposalIDRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryNextProposalIDResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryCurrentCommitteeIDResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -384,17 +574,17 @@ func (m *QueryNextProposalIDResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryNextProposalIDResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryCurrentCommitteeIDResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryNextProposalIDResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryCurrentCommitteeIDResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field NextProposalID", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CurrentCommitteeID", wireType)
 			}
-			m.NextProposalID = 0
+			m.CurrentCommitteeID = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowQuery
@@ -404,11 +594,143 @@ func (m *QueryNextProposalIDResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.NextProposalID |= uint64(b&0x7F) << shift
+				m.CurrentCommitteeID |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryRegisteredVotersRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryRegisteredVotersRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryRegisteredVotersRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryRegisteredVotersResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryRegisteredVotersResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryRegisteredVotersResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Voters", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Voters = append(m.Voters, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipQuery(dAtA[iNdEx:])

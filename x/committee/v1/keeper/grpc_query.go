@@ -9,15 +9,27 @@ import (
 
 var _ types.QueryServer = Keeper{}
 
-// Period returns the current period of the inflation module.
-func (k Keeper) NextProposalID(
+func (k Keeper) CurrentCommitteeID(
 	c context.Context,
-	_ *types.QueryNextProposalIDRequest,
-) (*types.QueryNextProposalIDResponse, error) {
+	_ *types.QueryCurrentCommitteeIDRequest,
+) (*types.QueryCurrentCommitteeIDResponse, error) {
 	ctx := sdk.UnwrapSDKContext(c)
-	nextProposalID, err := k.GetNextProposalID(ctx)
+	currentCommitteeID, err := k.GetCurrentCommitteeID(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return &types.QueryNextProposalIDResponse{NextProposalID: nextProposalID}, nil
+	return &types.QueryCurrentCommitteeIDResponse{CurrentCommitteeID: currentCommitteeID}, nil
+}
+
+func (k Keeper) RegisteredVoters(
+	c context.Context,
+	_ *types.QueryRegisteredVotersRequest,
+) (*types.QueryRegisteredVotersResponse, error) {
+	ctx := sdk.UnwrapSDKContext(c)
+	voterAddrs := k.GetVoters(ctx)
+	voters := make([]string, len(voterAddrs))
+	for i, voterAddr := range voterAddrs {
+		voters[i] = voterAddr.String()
+	}
+	return &types.QueryRegisteredVotersResponse{Voters: voters}, nil
 }

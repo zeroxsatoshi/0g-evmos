@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-var _, _, _ sdk.Msg = &MsgRegister{}, &MsgPropose{}, &MsgVote{}
+var _, _ sdk.Msg = &MsgRegister{}, &MsgVote{}
 
 // GetSigners returns the expected signers for a MsgRegister message.
 func (msg *MsgRegister) GetSigners() []sdk.AccAddress {
@@ -35,32 +35,6 @@ func (msg *MsgRegister) ValidateBasic() error {
 
 // GetSignBytes implements the LegacyMsg interface.
 func (msg MsgRegister) GetSignBytes() []byte {
-	return sdk.MustSortJSON(AminoCdc.MustMarshalJSON(&msg))
-}
-
-// GetSigners returns the expected signers for a MsgPropose message.
-func (msg *MsgPropose) GetSigners() []sdk.AccAddress {
-	valAddr, err := sdk.ValAddressFromBech32(msg.Proposer)
-	if err != nil {
-		panic(err)
-	}
-	accAddr, err := sdk.AccAddressFromHexUnsafe(hex.EncodeToString(valAddr.Bytes()))
-	if err != nil {
-		panic(err)
-	}
-	return []sdk.AccAddress{accAddr}
-}
-
-// ValidateBasic does a sanity check of the provided data
-func (msg *MsgPropose) ValidateBasic() error {
-	if _, err := sdk.ValAddressFromBech32(msg.Proposer); err != nil {
-		return ErrInvalidValidatorAddress
-	}
-	return nil
-}
-
-// GetSignBytes implements the LegacyMsg interface.
-func (msg MsgPropose) GetSignBytes() []byte {
 	return sdk.MustSortJSON(AminoCdc.MustMarshalJSON(&msg))
 }
 

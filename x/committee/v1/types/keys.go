@@ -17,11 +17,12 @@ const (
 // Key prefixes
 var (
 	CommitteeKeyPrefix = []byte{0x00} // prefix for keys that store committees
-	ProposalKeyPrefix  = []byte{0x01} // prefix for keys that store proposals
-	VoteKeyPrefix      = []byte{0x02} // prefix for keys that store votes
-	VoterKeyPrefix     = []byte{0x03} // prefix for keys that store voters
+	VoteKeyPrefix      = []byte{0x01} // prefix for keys that store votes
+	VoterKeyPrefix     = []byte{0x02} // prefix for keys that store voters
 
-	NextProposalIDKey = []byte{0x04} // key for the next proposal id
+	VotingStartHeightKey  = []byte{0x03}
+	VotingPeriodKey       = []byte{0x04}
+	CurrentCommitteeIDKey = []byte{0x05} // key for the current committee id
 )
 
 // GetKeyFromID returns the bytes to use as a key for a uint64 id
@@ -29,8 +30,8 @@ func GetKeyFromID(id uint64) []byte {
 	return uint64ToBytes(id)
 }
 
-func GetVoteKey(proposalID uint64, voter sdk.ValAddress) []byte {
-	return append(GetKeyFromID(proposalID), voter.Bytes()...)
+func GetVoteKey(committeeID uint64, voter sdk.ValAddress) []byte {
+	return append(GetKeyFromID(committeeID), voter.Bytes()...)
 }
 
 func GetVoterKey(voter sdk.ValAddress) []byte {

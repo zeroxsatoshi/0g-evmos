@@ -3,6 +3,7 @@ package cli
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -22,16 +23,17 @@ func GetQueryCmd() *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		GetNextProposalID(),
+		GetCurrentCommitteeID(),
+		GetRegisteredVoters(),
 	)
 
 	return cmd
 }
 
-func GetNextProposalID() *cobra.Command {
+func GetCurrentCommitteeID() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "next-proposal-id",
-		Short: "Query the next proposal ID",
+		Use:   "current-committee-id",
+		Short: "Query the current committee ID",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -41,13 +43,41 @@ func GetNextProposalID() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryNextProposalIDRequest{}
-			res, err := queryClient.NextProposalID(context.Background(), params)
+			params := &types.QueryCurrentCommitteeIDRequest{}
+			res, err := queryClient.CurrentCommitteeID(context.Background(), params)
 			if err != nil {
 				return err
 			}
 
-			return clientCtx.PrintString(fmt.Sprintf("%v\n", res.NextProposalID))
+			return clientCtx.PrintString(fmt.Sprintf("%v\n", res.CurrentCommitteeID))
+		},
+	}
+
+	flags.AddQueryFlagsToCmd(cmd)
+
+	return cmd
+}
+
+func GetRegisteredVoters() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "registered-voters",
+		Short: "Query registered voters",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			params := &types.QueryRegisteredVotersRequest{}
+			res, err := queryClient.RegisteredVoters(context.Background(), params)
+			if err != nil {
+				return err
+			}
+
+			return clientCtx.PrintString(fmt.Sprintf("%v\n", strings.Join(res.Voters, ",")))
 		},
 	}
 

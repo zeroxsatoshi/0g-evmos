@@ -25,7 +25,6 @@ func GetTxCmd() *cobra.Command {
 	}
 	cmd.AddCommand(
 		NewRegisterCmd(),
-		NewProposeCmd(),
 		NewVoteCmd(),
 	)
 	return cmd
@@ -66,52 +65,9 @@ func NewRegisterCmd() *cobra.Command {
 	return cmd
 }
 
-func NewProposeCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "propose",
-		Short: "Propose to create a new committee",
-		Args:  cobra.ExactArgs(3),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			clientCtx, err := client.GetClientTxContext(cmd)
-			if err != nil {
-				return err
-			}
-
-			valAddr, err := sdk.ValAddressFromHex(hex.EncodeToString(clientCtx.GetFromAddress().Bytes()))
-			if err != nil {
-				return err
-			}
-
-			startingHeight, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return err
-			}
-			votingStartingHeight, err := strconv.ParseUint(args[1], 10, 64)
-			if err != nil {
-				return err
-			}
-			votingEndHeight, err := strconv.ParseUint(args[2], 10, 64)
-			if err != nil {
-				return err
-			}
-
-			msg := &types.MsgPropose{
-				Proposer:          valAddr.String(),
-				StartingHeight:    startingHeight,
-				VotingStartHeight: votingStartingHeight,
-				VotingEndHeight:   votingEndHeight,
-			}
-			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
-		},
-	}
-
-	flags.AddTxFlagsToCmd(cmd)
-	return cmd
-}
-
 func NewVoteCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "vote proposal-id",
+		Use:   "vote committee-id",
 		Short: "Vote on a proposal",
 		Args:  cobra.MinimumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -125,15 +81,15 @@ func NewVoteCmd() *cobra.Command {
 				return err
 			}
 
-			proposalID, err := strconv.ParseUint(args[0], 10, 64)
+			committeeID, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}
 
 			msg := &types.MsgVote{
-				ProposalID: proposalID,
-				Voter:      valAddr.String(),
-				Ballots:    nil,
+				CommitteeID: committeeID,
+				Voter:       valAddr.String(),
+				Ballots:     nil,
 				// TODO
 			}
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
