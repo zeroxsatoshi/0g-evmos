@@ -27,7 +27,7 @@ var (
 
 // GetKeyFromID returns the bytes to use as a key for a uint64 id
 func GetKeyFromID(id uint64) []byte {
-	return uint64ToBytes(id)
+	return Uint64ToBytes(id)
 }
 
 func GetVoteKey(committeeID uint64, voter sdk.ValAddress) []byte {
@@ -39,7 +39,7 @@ func GetVoterKey(voter sdk.ValAddress) []byte {
 }
 
 // Uint64ToBytes converts a uint64 into fixed length bytes for use in store keys.
-func uint64ToBytes(id uint64) []byte {
+func Uint64ToBytes(id uint64) []byte {
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, uint64(id))
 	return bz

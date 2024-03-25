@@ -1,7 +1,7 @@
 package types
 
 const (
-	DefaultVotingStartHeight = 200
+	DefaultVotingStartHeight = 1
 	DefaultVotingPeriod      = 200
 )
 

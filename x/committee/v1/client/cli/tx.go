@@ -1,15 +1,18 @@
 package cli
 
 import (
+	"bytes"
 	"encoding/hex"
 	"fmt"
 	"strconv"
 
+	sdkmath "cosmossdk.io/math"
 	"github.com/coniks-sys/coniks-go/crypto/vrf"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/evmos/evmos/v16/x/committee/v1/types"
 	"github.com/spf13/cobra"
 )
@@ -86,11 +89,41 @@ func NewVoteCmd() *cobra.Command {
 				return err
 			}
 
+			votingStartHeight := types.DefaultVotingStartHeight + (committeeID-1)*types.DefaultVotingPeriod
+
+			rsp, err := stakingtypes.NewQueryClient(clientCtx).HistoricalInfo(cmd.Context(), &stakingtypes.QueryHistoricalInfoRequest{Height: int64(votingStartHeight)})
+			if err != nil {
+				return err
+			}
+
+			// TODO: DO NOT generate a new pair of keys
+			sk, err := vrf.GenerateKey(nil)
+			if err != nil {
+				return err
+			}
+
+			var tokens sdkmath.Int
+			for _, val := range rsp.Hist.Valset {
+				if val.GetOperator().Equals(valAddr) {
+					tokens = val.GetTokens()
+				}
+			}
+
+			// 1_000 0AGI token / vote
+			numBallots := tokens.Quo(sdk.NewInt(1_000_000_000_000_000_000)).Quo(sdk.NewInt(1_000)).Uint64()
+			ballots := make([]*types.Ballot, numBallots)
+			for i := range ballots {
+				ballotID := uint64(i)
+				ballots[i] = &types.Ballot{
+					ID:      ballotID,
+					Content: sk.Compute(bytes.Join([][]byte{rsp.Hist.Header.LastCommitHash, types.Uint64ToBytes(ballotID)}, nil)),
+				}
+			}
+
 			msg := &types.MsgVote{
 				CommitteeID: committeeID,
 				Voter:       valAddr.String(),
-				Ballots:     nil,
-				// TODO
+				Ballots:     ballots,
 			}
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
