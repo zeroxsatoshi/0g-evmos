@@ -20,9 +20,10 @@ var (
 	VoteKeyPrefix      = []byte{0x01} // prefix for keys that store votes
 	VoterKeyPrefix     = []byte{0x02} // prefix for keys that store voters
 
-	VotingStartHeightKey  = []byte{0x03}
-	VotingPeriodKey       = []byte{0x04}
-	CurrentCommitteeIDKey = []byte{0x05} // key for the current committee id
+	ParamsKey             = []byte{0x03}
+	VotingStartHeightKey  = []byte{0x04}
+	VotingPeriodKey       = []byte{0x05}
+	CurrentCommitteeIDKey = []byte{0x06}
 )
 
 // GetKeyFromID returns the bytes to use as a key for a uint64 id

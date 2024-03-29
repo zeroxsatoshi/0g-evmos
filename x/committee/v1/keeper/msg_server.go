@@ -5,7 +5,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
@@ -22,8 +21,6 @@ func (k Keeper) Register(goCtx context.Context, msg *types.MsgRegister) (*types.
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Printf("valAddr: %s\n", valAddr.String())
 
 	_, found := k.stakingKeeper.GetValidator(ctx, valAddr)
 	if !found {
@@ -49,14 +46,6 @@ func (k Keeper) Vote(goCtx context.Context, msg *types.MsgVote) (*types.MsgVoteR
 	if err := k.AddVote(ctx, msg.CommitteeID, voter, msg.Ballots); err != nil {
 		return nil, err
 	}
-
-	// ctx.EventManager().EmitEvent(
-	// 	sdk.NewEvent(
-	// 		sdk.EventTypeMessage,
-	// 		sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
-	// 		sdk.NewAttribute(sdk.AttributeKeySender, msg.Voter),
-	// 	),
-	// )
 
 	return &types.MsgVoteResponse{}, nil
 }

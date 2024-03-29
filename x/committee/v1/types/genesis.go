@@ -6,8 +6,9 @@ const (
 )
 
 // NewGenesisState returns a new genesis state object for the module.
-func NewGenesisState(votingStartHeight uint64, votingPeriod uint64, currentCommitteeID uint64, committees Committees) *GenesisState {
+func NewGenesisState(params Params, votingStartHeight uint64, votingPeriod uint64, currentCommitteeID uint64, committees Committees) *GenesisState {
 	return &GenesisState{
+		Params:             params,
 		VotingStartHeight:  votingStartHeight,
 		VotingPeriod:       votingPeriod,
 		CurrentCommitteeID: currentCommitteeID,
@@ -18,6 +19,9 @@ func NewGenesisState(votingStartHeight uint64, votingPeriod uint64, currentCommi
 // DefaultGenesisState returns the default genesis state for the module.
 func DefaultGenesisState() *GenesisState {
 	return NewGenesisState(
+		Params{
+			CommitteeSize: 1,
+		},
 		DefaultVotingStartHeight,
 		DefaultVotingPeriod,
 		1,

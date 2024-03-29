@@ -94,30 +94,29 @@ func (k Keeper) GetVotingPeriod(ctx sdk.Context) (uint64, error) {
 	return types.Uint64FromBytes(bz), nil
 }
 
-// // StoreNewProposal stores a proposal, adding a new ID
-// func (k Keeper) StoreNewCommittee(ctx sdk.Context, startingHeight uint64, votingStartHeight uint64, votingEndHeight uint64) (uint64, error) {
-// 	currentCommitteeID, err := k.GetCurrentCommitteeID(ctx)
-// 	if err != nil {
-// 		return 0, err
-// 	}
-// 	proposal, err := types.NewProposal(
-// 		newProposalID,
-// 		startingHeight,
-// 		votingStartHeight,
-// 		votingEndHeight,
-// 	)
-// 	if err != nil {
-// 		return 0, err
-// 	}
+// StoreNewCommittee stores a committee, adding a new ID
+func (k Keeper) StoreNewCommittee(ctx sdk.Context, votingStartHeight uint64) error {
+	currentCommitteeID, err := k.GetCurrentCommitteeID(ctx)
+	if err != nil {
+		return err
+	}
 
-// 	k.SetProposal(ctx, proposal)
+	votingPeriod, err := k.GetVotingPeriod(ctx)
+	if err != nil {
+		return err
+	}
+	com := types.Committee{
+		ID:                currentCommitteeID + 1,
+		VotingStartHeight: votingStartHeight,
+		StartHeight:       votingStartHeight + votingPeriod,
+		EndHeight:         votingStartHeight + votingPeriod*2,
+		Votes:             []types.Vote{},
+		Members:           []sdk.ValAddress{},
+	}
+	k.SetCommittee(ctx, com)
 
-// 	err = k.IncrementNextProposalID(ctx)
-// 	if err != nil {
-// 		return 0, err
-// 	}
-// 	return newProposalID, nil
-// }
+	return nil
+}
 
 func (k Keeper) GetCommittee(ctx sdk.Context, committeeID uint64) (types.Committee, bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.CommitteeKeyPrefix)
@@ -130,7 +129,7 @@ func (k Keeper) GetCommittee(ctx sdk.Context, committeeID uint64) (types.Committ
 	return com, true
 }
 
-// SetProposal puts a proposal into the store.
+// SetCommittee puts a committee into the store.
 func (k Keeper) SetCommittee(ctx sdk.Context, committee types.Committee) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.CommitteeKeyPrefix)
 	bz := k.cdc.MustMarshal(&committee)

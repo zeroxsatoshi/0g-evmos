@@ -3,6 +3,7 @@ package committee
 import (
 	"fmt"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/evmos/evmos/v16/x/committee/v1/keeper"
@@ -13,6 +14,12 @@ import (
 func InitGenesis(ctx sdk.Context, keeper keeper.Keeper, gs types.GenesisState) {
 	if err := gs.Validate(); err != nil {
 		panic(fmt.Sprintf("failed to validate %s genesis state: %s", types.ModuleName, err))
+	}
+
+	params := gs.Params
+	err := keeper.SetParams(ctx, params)
+	if err != nil {
+		panic(errorsmod.Wrapf(err, "error setting params"))
 	}
 
 	keeper.SetCurrentCommitteeID(ctx, gs.CurrentCommitteeID)
@@ -39,12 +46,11 @@ func ExportGenesis(ctx sdk.Context, keeper keeper.Keeper) *types.GenesisState {
 		panic(err)
 	}
 
-	committees := keeper.GetCommittees(ctx)
-
 	return types.NewGenesisState(
+		keeper.GetParams(ctx),
 		startHeight,
 		period,
 		currentID,
-		committees,
+		keeper.GetCommittees(ctx),
 	)
 }

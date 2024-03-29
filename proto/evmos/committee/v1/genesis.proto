@@ -8,14 +8,19 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/evmos/evmos/v16/x/committee/v1/types";
 
+message Params {
+  uint64 committee_size = 1;
+}
+
 // GenesisState defines the committee module's genesis state.
 message GenesisState {
   option (gogoproto.goproto_getters) = false;
-  
-  uint64 voting_start_height = 1;
-  uint64 voting_period = 2;
-  uint64 current_committee_id = 3 [(gogoproto.customname) = "CurrentCommitteeID"];
-  repeated Committee committees = 4 [(gogoproto.nullable) = false];
+
+  Params params = 1 [(gogoproto.nullable) = false];
+  uint64 voting_start_height = 2;
+  uint64 voting_period = 3;
+  uint64 current_committee_id = 4 [(gogoproto.customname) = "CurrentCommitteeID"];
+  repeated Committee committees = 5 [(gogoproto.nullable) = false];
 }
 
 message Committee {
@@ -24,6 +29,10 @@ message Committee {
   uint64 start_height = 3;
   uint64 end_height = 4;
   repeated Vote votes = 5 [(gogoproto.nullable) = false];  
+  repeated bytes members = 6 [
+    (cosmos_proto.scalar) = "cosmos.AddressBytes",
+    (gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ValAddress"
+  ];
 }
 
 message Vote {
