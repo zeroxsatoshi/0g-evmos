@@ -3,8 +3,10 @@ package types
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
+	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
+	"github.com/evmos/evmos/v16/crypto/vrf"
 )
 
 var (
@@ -36,6 +38,9 @@ func RegisterInterfaces(registry codectypes.InterfaceRegistry) {
 		&MsgRegister{},
 		&MsgVote{},
 	)
+
+	registry.RegisterImplementations((*cryptotypes.PubKey)(nil), &vrf.PubKey{})
+	registry.RegisterImplementations((*cryptotypes.PrivKey)(nil), &vrf.PrivKey{})
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }

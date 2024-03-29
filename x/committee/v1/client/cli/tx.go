@@ -1,19 +1,25 @@
 package cli
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"strconv"
 
 	sdkmath "cosmossdk.io/math"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdkkr "github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	"github.com/evmos/evmos/v16/crypto/vrf"
 	"github.com/evmos/evmos/v16/x/committee/v1/types"
+
+	vrfalgo "github.com/coniks-sys/coniks-go/crypto/vrf"
+	"github.com/cosmos/cosmos-sdk/client/input"
 	"github.com/spf13/cobra"
 )
 
@@ -39,7 +45,55 @@ func NewRegisterCmd() *cobra.Command {
 		Short: "Register a voter",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
+			// bypass the restriction of set keyring options
+			ctx := client.GetClientContextFromCmd(cmd).WithKeyringOptions(vrf.VrfOption())
+			client.SetCmdClientContext(cmd, ctx)
 			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			kr := clientCtx.Keyring
+			// get account name by address
+			accAddr := clientCtx.GetFromAddress()
+			accRecord, err := kr.KeyByAddress(accAddr)
+			if err != nil {
+				// not found record by address in keyring
+				return nil
+			}
+
+			// check voter account record exists
+			voterAccName := accRecord.Name + "-voter"
+			_, err = kr.Key(voterAccName)
+			if err == nil {
+				// account exists, ask for user confirmation
+				response, err2 := input.GetConfirmation(fmt.Sprintf("override the existing name %s", voterAccName), bufio.NewReader(clientCtx.Input), cmd.ErrOrStderr())
+				if err2 != nil {
+					return err2
+				}
+
+				if !response {
+					return errors.New("aborted")
+				}
+
+				err2 = kr.Delete(voterAccName)
+				if err2 != nil {
+					return err2
+				}
+			}
+
+			keyringAlgos, _ := kr.SupportedAlgorithms()
+			algo, err := sdkkr.NewSigningAlgoFromString("vrf", keyringAlgos)
+			if err != nil {
+				return err
+			}
+
+			newRecord, err := kr.NewAccount(voterAccName, "", "", "", algo)
+			if err != nil {
+				return err
+			}
+
+			pubKey, err := newRecord.GetPubKey()
 			if err != nil {
 				return err
 			}
@@ -49,16 +103,9 @@ func NewRegisterCmd() *cobra.Command {
 				return err
 			}
 
-			sk, err := vrf.GenerateKey(nil)
-			if err != nil {
-				return err
-			}
-			pk, _ := sk.Public()
-			// TODO: save private key
-
 			msg := &types.MsgRegister{
 				Voter: valAddr.String(),
-				Key:   pk,
+				Key:   pubKey.Bytes(),
 			}
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
@@ -79,10 +126,30 @@ func NewVoteCmd() *cobra.Command {
 				return err
 			}
 
-			valAddr, err := sdk.ValAddressFromHex(hex.EncodeToString(clientCtx.GetFromAddress().Bytes()))
+			kr := clientCtx.Keyring
+
+			// get account name by address
+			inAddr := clientCtx.GetFromAddress()
+
+			valAddr, err := sdk.ValAddressFromHex(hex.EncodeToString(inAddr.Bytes()))
 			if err != nil {
 				return err
 			}
+
+			inRecord, err := kr.KeyByAddress(inAddr)
+			if err != nil {
+				// not found record by address in keyring
+				return nil
+			}
+
+			// check voter account record exists
+			voterAccName := inRecord.Name + "-voter"
+			voterRecord, err := kr.Key(voterAccName)
+			if err != nil {
+				// not found voter account
+				return err
+			}
+			sk := vrfalgo.PrivateKey(voterRecord.GetLocal().PrivKey.Value)
 
 			committeeID, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
@@ -96,15 +163,10 @@ func NewVoteCmd() *cobra.Command {
 				return err
 			}
 
-			// TODO: DO NOT generate a new pair of keys
-			sk, err := vrf.GenerateKey(nil)
-			if err != nil {
-				return err
-			}
-
 			var tokens sdkmath.Int
 			for _, val := range rsp.Hist.Valset {
-				if val.GetOperator().Equals(valAddr) {
+				thisValAddr := val.GetOperator()
+				if thisValAddr.Equals(valAddr) {
 					tokens = val.GetTokens()
 				}
 			}
