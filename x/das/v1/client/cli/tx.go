@@ -45,10 +45,7 @@ func NewRequestDASCmd() *cobra.Command {
 				return err
 			}
 
-			msg := &types.MsgRequestDAS{
-				BatchHeaderHash: args[0],
-				NumBlobs:        uint32(numBlobs),
-			}
+			msg := types.NewMsgRequestDAS(clientCtx.GetFromAddress(), args[0], uint32(numBlobs))
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}

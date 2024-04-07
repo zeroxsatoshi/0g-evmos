@@ -1,16 +1,35 @@
 package types
 
 import (
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 var _, _ sdk.Msg = &MsgRequestDAS{}, &MsgReportDASResult{}
 
-func (msg *MsgRequestDAS) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{}
+func NewMsgRequestDAS(fromAddr sdk.AccAddress, hash string, numBlobs uint32) *MsgRequestDAS {
+	return &MsgRequestDAS{
+		FromAddress:     fromAddr.String(),
+		BatchHeaderHash: hash,
+		NumBlobs:        numBlobs,
+	}
 }
 
-func (msg *MsgRequestDAS) ValidateBasic() error {
+func (msg MsgRequestDAS) GetSigners() []sdk.AccAddress {
+	from, err := sdk.AccAddressFromBech32(msg.FromAddress)
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{from}
+}
+
+func (msg MsgRequestDAS) ValidateBasic() error {
+	_, err := sdk.AccAddressFromBech32(msg.FromAddress)
+	if err != nil {
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "Invalid sender address (%s)", err)
+	}
+
 	return nil
 }
 

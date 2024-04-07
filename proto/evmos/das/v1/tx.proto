@@ -11,13 +11,14 @@ option (gogoproto.goproto_getters_all) = false;
 
 // Msg defines the das Msg service
 service Msg {
-    rpc RequestDAS(MsgRequestDAS) returns (MsgRequestDASResponse);
-    rpc ReportDASResult(MsgReportDASResult) returns (MsgReportDASResultResponse);
+  rpc RequestDAS(MsgRequestDAS) returns (MsgRequestDASResponse);
+  rpc ReportDASResult(MsgReportDASResult) returns (MsgReportDASResultResponse);
 }
 
 message MsgRequestDAS {
-  string batch_header_hash = 1;
-  uint32 num_blobs = 2;
+  string from_address = 1 [(gogoproto.moretags) = "FromAddress"];
+  string batch_header_hash = 2;
+  uint32 num_blobs = 3;
 }
 
 message MsgRequestDASResponse {
@@ -27,7 +28,7 @@ message MsgRequestDASResponse {
 message MsgReportDASResult {
   uint64 request_id = 1 [(gogoproto.customname) = "RequestID"];
   string sampler = 2;
-  bool success = 3; 
+  bool success = 3;
 }
 
 message MsgReportDASResultResponse {}
