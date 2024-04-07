@@ -30,23 +30,23 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type MsgRequestSampling struct {
+type MsgRequestDAS struct {
 	BatchHeaderHash string `protobuf:"bytes,1,opt,name=batch_header_hash,json=batchHeaderHash,proto3" json:"batch_header_hash,omitempty"`
 	NumBlobs        uint32 `protobuf:"varint,2,opt,name=num_blobs,json=numBlobs,proto3" json:"num_blobs,omitempty"`
 }
 
-func (m *MsgRequestSampling) Reset()         { *m = MsgRequestSampling{} }
-func (m *MsgRequestSampling) String() string { return proto.CompactTextString(m) }
-func (*MsgRequestSampling) ProtoMessage()    {}
-func (*MsgRequestSampling) Descriptor() ([]byte, []int) {
+func (m *MsgRequestDAS) Reset()         { *m = MsgRequestDAS{} }
+func (m *MsgRequestDAS) String() string { return proto.CompactTextString(m) }
+func (*MsgRequestDAS) ProtoMessage()    {}
+func (*MsgRequestDAS) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8f2f96adc8b236fc, []int{0}
 }
-func (m *MsgRequestSampling) XXX_Unmarshal(b []byte) error {
+func (m *MsgRequestDAS) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRequestSampling) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRequestDAS) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRequestSampling.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRequestDAS.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -56,33 +56,34 @@ func (m *MsgRequestSampling) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *MsgRequestSampling) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRequestSampling.Merge(m, src)
+func (m *MsgRequestDAS) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRequestDAS.Merge(m, src)
 }
-func (m *MsgRequestSampling) XXX_Size() int {
+func (m *MsgRequestDAS) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRequestSampling) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRequestSampling.DiscardUnknown(m)
+func (m *MsgRequestDAS) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRequestDAS.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRequestSampling proto.InternalMessageInfo
+var xxx_messageInfo_MsgRequestDAS proto.InternalMessageInfo
 
-type MsgRequestSamplingResponse struct {
+type MsgRequestDASResponse struct {
+	RequestID uint64 `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 }
 
-func (m *MsgRequestSamplingResponse) Reset()         { *m = MsgRequestSamplingResponse{} }
-func (m *MsgRequestSamplingResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgRequestSamplingResponse) ProtoMessage()    {}
-func (*MsgRequestSamplingResponse) Descriptor() ([]byte, []int) {
+func (m *MsgRequestDASResponse) Reset()         { *m = MsgRequestDASResponse{} }
+func (m *MsgRequestDASResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRequestDASResponse) ProtoMessage()    {}
+func (*MsgRequestDASResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8f2f96adc8b236fc, []int{1}
 }
-func (m *MsgRequestSamplingResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgRequestDASResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgRequestSamplingResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRequestDASResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgRequestSamplingResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRequestDASResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -92,36 +93,36 @@ func (m *MsgRequestSamplingResponse) XXX_Marshal(b []byte, deterministic bool) (
 		return b[:n], nil
 	}
 }
-func (m *MsgRequestSamplingResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgRequestSamplingResponse.Merge(m, src)
+func (m *MsgRequestDASResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRequestDASResponse.Merge(m, src)
 }
-func (m *MsgRequestSamplingResponse) XXX_Size() int {
+func (m *MsgRequestDASResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgRequestSamplingResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgRequestSamplingResponse.DiscardUnknown(m)
+func (m *MsgRequestDASResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRequestDASResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgRequestSamplingResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgRequestDASResponse proto.InternalMessageInfo
 
-type MsgReportSamplingResult struct {
+type MsgReportDASResult struct {
 	RequestID uint64 `protobuf:"varint,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
 	Sampler   string `protobuf:"bytes,2,opt,name=sampler,proto3" json:"sampler,omitempty"`
-	Result    bool   `protobuf:"varint,3,opt,name=result,proto3" json:"result,omitempty"`
+	Success   bool   `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
 }
 
-func (m *MsgReportSamplingResult) Reset()         { *m = MsgReportSamplingResult{} }
-func (m *MsgReportSamplingResult) String() string { return proto.CompactTextString(m) }
-func (*MsgReportSamplingResult) ProtoMessage()    {}
-func (*MsgReportSamplingResult) Descriptor() ([]byte, []int) {
+func (m *MsgReportDASResult) Reset()         { *m = MsgReportDASResult{} }
+func (m *MsgReportDASResult) String() string { return proto.CompactTextString(m) }
+func (*MsgReportDASResult) ProtoMessage()    {}
+func (*MsgReportDASResult) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8f2f96adc8b236fc, []int{2}
 }
-func (m *MsgReportSamplingResult) XXX_Unmarshal(b []byte) error {
+func (m *MsgReportDASResult) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgReportSamplingResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgReportDASResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgReportSamplingResult.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgReportDASResult.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -131,33 +132,33 @@ func (m *MsgReportSamplingResult) XXX_Marshal(b []byte, deterministic bool) ([]b
 		return b[:n], nil
 	}
 }
-func (m *MsgReportSamplingResult) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgReportSamplingResult.Merge(m, src)
+func (m *MsgReportDASResult) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgReportDASResult.Merge(m, src)
 }
-func (m *MsgReportSamplingResult) XXX_Size() int {
+func (m *MsgReportDASResult) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgReportSamplingResult) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgReportSamplingResult.DiscardUnknown(m)
+func (m *MsgReportDASResult) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgReportDASResult.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgReportSamplingResult proto.InternalMessageInfo
+var xxx_messageInfo_MsgReportDASResult proto.InternalMessageInfo
 
-type MsgReportSamplingResultResponse struct {
+type MsgReportDASResultResponse struct {
 }
 
-func (m *MsgReportSamplingResultResponse) Reset()         { *m = MsgReportSamplingResultResponse{} }
-func (m *MsgReportSamplingResultResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgReportSamplingResultResponse) ProtoMessage()    {}
-func (*MsgReportSamplingResultResponse) Descriptor() ([]byte, []int) {
+func (m *MsgReportDASResultResponse) Reset()         { *m = MsgReportDASResultResponse{} }
+func (m *MsgReportDASResultResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgReportDASResultResponse) ProtoMessage()    {}
+func (*MsgReportDASResultResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8f2f96adc8b236fc, []int{3}
 }
-func (m *MsgReportSamplingResultResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgReportDASResultResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgReportSamplingResultResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgReportDASResultResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgReportSamplingResultResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgReportDASResultResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -167,54 +168,54 @@ func (m *MsgReportSamplingResultResponse) XXX_Marshal(b []byte, deterministic bo
 		return b[:n], nil
 	}
 }
-func (m *MsgReportSamplingResultResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgReportSamplingResultResponse.Merge(m, src)
+func (m *MsgReportDASResultResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgReportDASResultResponse.Merge(m, src)
 }
-func (m *MsgReportSamplingResultResponse) XXX_Size() int {
+func (m *MsgReportDASResultResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgReportSamplingResultResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgReportSamplingResultResponse.DiscardUnknown(m)
+func (m *MsgReportDASResultResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgReportDASResultResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgReportSamplingResultResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgReportDASResultResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgRequestSampling)(nil), "evmos.das.v1.MsgRequestSampling")
-	proto.RegisterType((*MsgRequestSamplingResponse)(nil), "evmos.das.v1.MsgRequestSamplingResponse")
-	proto.RegisterType((*MsgReportSamplingResult)(nil), "evmos.das.v1.MsgReportSamplingResult")
-	proto.RegisterType((*MsgReportSamplingResultResponse)(nil), "evmos.das.v1.MsgReportSamplingResultResponse")
+	proto.RegisterType((*MsgRequestDAS)(nil), "evmos.das.v1.MsgRequestDAS")
+	proto.RegisterType((*MsgRequestDASResponse)(nil), "evmos.das.v1.MsgRequestDASResponse")
+	proto.RegisterType((*MsgReportDASResult)(nil), "evmos.das.v1.MsgReportDASResult")
+	proto.RegisterType((*MsgReportDASResultResponse)(nil), "evmos.das.v1.MsgReportDASResultResponse")
 }
 
 func init() { proto.RegisterFile("evmos/das/v1/tx.proto", fileDescriptor_8f2f96adc8b236fc) }
 
 var fileDescriptor_8f2f96adc8b236fc = []byte{
 	// 399 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xcf, 0x8e, 0x93, 0x40,
-	0x18, 0x67, 0x5c, 0xb3, 0x2e, 0x13, 0x37, 0x1b, 0x27, 0xab, 0xb2, 0x68, 0x28, 0x92, 0x98, 0xa0,
-	0x51, 0x26, 0xd5, 0xc4, 0x07, 0x68, 0x4c, 0x6c, 0x0f, 0xbd, 0xe0, 0xcd, 0xa4, 0x21, 0x43, 0x19,
-	0x07, 0x12, 0x60, 0x90, 0x0f, 0x48, 0xfb, 0x16, 0x3e, 0x56, 0x8f, 0x8d, 0x27, 0x4f, 0x46, 0xe9,
-	0x8b, 0x98, 0x0e, 0x60, 0xaa, 0xad, 0xd1, 0x0b, 0xe1, 0xf7, 0x67, 0x7e, 0xbf, 0xe1, 0xe3, 0xc3,
-	0xf7, 0x79, 0x93, 0x49, 0xa0, 0x11, 0x03, 0xda, 0x8c, 0x69, 0xb5, 0xf2, 0x8a, 0x52, 0x56, 0x92,
-	0xdc, 0x55, 0xb4, 0x17, 0x31, 0xf0, 0x9a, 0xb1, 0x79, 0xb3, 0x94, 0x90, 0x49, 0x08, 0x94, 0x46,
-	0x3b, 0xd0, 0x19, 0xcd, 0x6b, 0x21, 0x85, 0xec, 0xf8, 0xfd, 0x5b, 0xcf, 0xde, 0x08, 0x29, 0x45,
-	0xca, 0xa9, 0x42, 0x61, 0xfd, 0x91, 0xb2, 0x7c, 0xdd, 0x4b, 0xe6, 0x6f, 0x85, 0x82, 0xe7, 0x1c,
-	0x92, 0x3e, 0xcc, 0x59, 0x60, 0x32, 0x07, 0xe1, 0xf3, 0x4f, 0x35, 0x87, 0xea, 0x3d, 0xcb, 0x8a,
-	0x34, 0xc9, 0x05, 0x79, 0x8e, 0xef, 0x85, 0xac, 0x5a, 0xc6, 0x41, 0xcc, 0x59, 0xc4, 0xcb, 0x20,
-	0x66, 0x10, 0x1b, 0xc8, 0x46, 0xae, 0xee, 0x5f, 0x29, 0x61, 0xaa, 0xf8, 0x29, 0x83, 0x98, 0x3c,
-	0xc2, 0x7a, 0x5e, 0x67, 0x41, 0x98, 0xca, 0x10, 0x8c, 0x5b, 0x36, 0x72, 0x2f, 0xfd, 0x8b, 0xbc,
-	0xce, 0x26, 0x7b, 0xec, 0x3c, 0xc6, 0xe6, 0x71, 0xbc, 0xcf, 0xa1, 0x90, 0x39, 0x70, 0x67, 0x8d,
-	0x1f, 0x2a, 0xb5, 0x90, 0xe5, 0xa1, 0x58, 0xa7, 0x15, 0x79, 0x81, 0x71, 0xd9, 0x9d, 0x0a, 0x92,
-	0x48, 0x55, 0xdf, 0x9e, 0x5c, 0xb6, 0xdf, 0x46, 0x7a, 0x9f, 0x35, 0x7b, 0xeb, 0xeb, 0xbd, 0x61,
-	0x16, 0x11, 0x03, 0xdf, 0x81, 0xfd, 0x79, 0x5e, 0xaa, 0x1b, 0xe8, 0xfe, 0x00, 0xc9, 0x03, 0x7c,
-	0x5e, 0xaa, 0x44, 0xe3, 0xcc, 0x46, 0xee, 0x85, 0xdf, 0x23, 0xe7, 0x09, 0x1e, 0xfd, 0xa5, 0x7a,
-	0xb8, 0xdd, 0xab, 0x2f, 0x08, 0x9f, 0xcd, 0x41, 0x90, 0x05, 0xbe, 0xfa, 0x73, 0x3e, 0xb6, 0x77,
-	0xf8, 0xb3, 0xbc, 0xe3, 0x4f, 0x34, 0xdd, 0x7f, 0x39, 0x86, 0x1a, 0x92, 0xe2, 0xeb, 0x93, 0x13,
-	0x78, 0x7a, 0x22, 0xe1, 0xd8, 0x66, 0xbe, 0xfc, 0x2f, 0xdb, 0xd0, 0x36, 0x79, 0xb7, 0xf9, 0x61,
-	0x69, 0x9b, 0xd6, 0x42, 0xdb, 0xd6, 0x42, 0xdf, 0x5b, 0x0b, 0x7d, 0xde, 0x59, 0xda, 0x76, 0x67,
-	0x69, 0x5f, 0x77, 0x96, 0xf6, 0xe1, 0x99, 0x48, 0xaa, 0xb8, 0x0e, 0xbd, 0xa5, 0xcc, 0x68, 0xb7,
-	0x34, 0xdd, 0xb3, 0x19, 0xbf, 0xa1, 0xab, 0x5f, 0x1b, 0xbb, 0x2e, 0x38, 0x84, 0xe7, 0x6a, 0x7f,
-	0x5e, 0xff, 0x0c, 0x00, 0x00, 0xff, 0xff, 0x5f, 0x03, 0x5c, 0xa9, 0xce, 0x02, 0x00, 0x00,
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x52, 0xcd, 0xae, 0x93, 0x40,
+	0x14, 0x66, 0xbc, 0x46, 0x2f, 0x13, 0x9b, 0x1b, 0x89, 0x37, 0xa1, 0xd4, 0x20, 0xc1, 0x0d, 0x1a,
+	0xc3, 0xa4, 0x9a, 0xb8, 0xb7, 0xa9, 0xb1, 0x5d, 0xd4, 0x05, 0x6e, 0x8c, 0x89, 0x21, 0x03, 0x8c,
+	0x43, 0x13, 0x60, 0x90, 0x03, 0xa4, 0x7d, 0x0b, 0x1f, 0xc6, 0x87, 0xe8, 0xb2, 0x4b, 0x57, 0x46,
+	0xe9, 0x8b, 0x98, 0x0e, 0xd0, 0x14, 0x35, 0x9a, 0xbb, 0x21, 0x7c, 0x3f, 0xf3, 0x9d, 0x39, 0x67,
+	0x0e, 0xbe, 0x66, 0x75, 0x2a, 0x80, 0x44, 0x14, 0x48, 0x3d, 0x25, 0xe5, 0xc6, 0xcd, 0x0b, 0x51,
+	0x0a, 0xed, 0x9e, 0xa4, 0xdd, 0x88, 0x82, 0x5b, 0x4f, 0x8d, 0x71, 0x28, 0x20, 0x15, 0xe0, 0x4b,
+	0x8d, 0xb4, 0xa0, 0x35, 0x1a, 0x0f, 0xb8, 0xe0, 0xa2, 0xe5, 0x8f, 0x7f, 0x1d, 0x3b, 0xe6, 0x42,
+	0xf0, 0x84, 0x11, 0x89, 0x82, 0xea, 0x13, 0xa1, 0xd9, 0xb6, 0x93, 0x8c, 0x41, 0x41, 0xce, 0x32,
+	0x06, 0xeb, 0x2e, 0xcc, 0x7e, 0x8f, 0x47, 0x2b, 0xe0, 0x1e, 0xfb, 0x5c, 0x31, 0x28, 0xe7, 0xaf,
+	0xde, 0x69, 0x4f, 0xf1, 0xfd, 0x80, 0x96, 0x61, 0xec, 0xc7, 0x8c, 0x46, 0xac, 0xf0, 0x63, 0x0a,
+	0xb1, 0x8e, 0x2c, 0xe4, 0xa8, 0xde, 0x95, 0x14, 0x16, 0x92, 0x5f, 0x50, 0x88, 0xb5, 0x09, 0x56,
+	0xb3, 0x2a, 0xf5, 0x83, 0x44, 0x04, 0xa0, 0xdf, 0xb2, 0x90, 0x33, 0xf2, 0x2e, 0xb3, 0x2a, 0x9d,
+	0x1d, 0xb1, 0xfd, 0x1a, 0x5f, 0x0f, 0x92, 0x3d, 0x06, 0xb9, 0xc8, 0x80, 0x69, 0xcf, 0x30, 0x2e,
+	0x5a, 0xd6, 0x5f, 0x47, 0x32, 0xfa, 0xf6, 0x6c, 0xd4, 0x7c, 0x7f, 0xa4, 0x76, 0xde, 0xe5, 0xdc,
+	0x53, 0x3b, 0xc3, 0x32, 0xb2, 0x6b, 0xac, 0xc9, 0x98, 0x5c, 0x14, 0x5d, 0x4a, 0x95, 0x94, 0x37,
+	0xcb, 0xd0, 0x74, 0x7c, 0x17, 0x68, 0x9a, 0x27, 0xac, 0x90, 0xb7, 0x54, 0xbd, 0x1e, 0x4a, 0xa5,
+	0x0a, 0x43, 0x06, 0xa0, 0x5f, 0x58, 0xc8, 0xb9, 0xf4, 0x7a, 0x68, 0x3f, 0xc4, 0xc6, 0x9f, 0x75,
+	0xfb, 0x1e, 0x9e, 0x7f, 0x45, 0xf8, 0x62, 0x05, 0x5c, 0x7b, 0x8b, 0xf1, 0xd9, 0xec, 0x26, 0xee,
+	0xf9, 0x1b, 0xba, 0x83, 0xf6, 0x8d, 0xc7, 0xff, 0x10, 0x4f, 0xb3, 0xf9, 0x88, 0xaf, 0x7e, 0x6f,
+	0xd5, 0xfa, 0xcb, 0xb9, 0x81, 0xc3, 0x70, 0xfe, 0xe7, 0xe8, 0xe3, 0x67, 0x6f, 0x76, 0x3f, 0x4d,
+	0x65, 0xd7, 0x98, 0x68, 0xdf, 0x98, 0xe8, 0x47, 0x63, 0xa2, 0x2f, 0x07, 0x53, 0xd9, 0x1f, 0x4c,
+	0xe5, 0xdb, 0xc1, 0x54, 0x3e, 0x3c, 0xe1, 0xeb, 0x32, 0xae, 0x02, 0x37, 0x14, 0x29, 0x69, 0x57,
+	0xa6, 0xfd, 0xd6, 0xd3, 0x97, 0x64, 0x73, 0xda, 0xd7, 0x6d, 0xce, 0x20, 0xb8, 0x23, 0xb7, 0xe7,
+	0xc5, 0xaf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x38, 0x5a, 0x55, 0xbe, 0xcc, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -229,8 +230,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	RequestSampling(ctx context.Context, in *MsgRequestSampling, opts ...grpc.CallOption) (*MsgRequestSamplingResponse, error)
-	ReportSamplingResult(ctx context.Context, in *MsgReportSamplingResult, opts ...grpc.CallOption) (*MsgReportSamplingResultResponse, error)
+	RequestDAS(ctx context.Context, in *MsgRequestDAS, opts ...grpc.CallOption) (*MsgRequestDASResponse, error)
+	ReportDASResult(ctx context.Context, in *MsgReportDASResult, opts ...grpc.CallOption) (*MsgReportDASResultResponse, error)
 }
 
 type msgClient struct {
@@ -241,18 +242,18 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) RequestSampling(ctx context.Context, in *MsgRequestSampling, opts ...grpc.CallOption) (*MsgRequestSamplingResponse, error) {
-	out := new(MsgRequestSamplingResponse)
-	err := c.cc.Invoke(ctx, "/evmos.das.v1.Msg/RequestSampling", in, out, opts...)
+func (c *msgClient) RequestDAS(ctx context.Context, in *MsgRequestDAS, opts ...grpc.CallOption) (*MsgRequestDASResponse, error) {
+	out := new(MsgRequestDASResponse)
+	err := c.cc.Invoke(ctx, "/evmos.das.v1.Msg/RequestDAS", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) ReportSamplingResult(ctx context.Context, in *MsgReportSamplingResult, opts ...grpc.CallOption) (*MsgReportSamplingResultResponse, error) {
-	out := new(MsgReportSamplingResultResponse)
-	err := c.cc.Invoke(ctx, "/evmos.das.v1.Msg/ReportSamplingResult", in, out, opts...)
+func (c *msgClient) ReportDASResult(ctx context.Context, in *MsgReportDASResult, opts ...grpc.CallOption) (*MsgReportDASResultResponse, error) {
+	out := new(MsgReportDASResultResponse)
+	err := c.cc.Invoke(ctx, "/evmos.das.v1.Msg/ReportDASResult", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -261,57 +262,57 @@ func (c *msgClient) ReportSamplingResult(ctx context.Context, in *MsgReportSampl
 
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	RequestSampling(context.Context, *MsgRequestSampling) (*MsgRequestSamplingResponse, error)
-	ReportSamplingResult(context.Context, *MsgReportSamplingResult) (*MsgReportSamplingResultResponse, error)
+	RequestDAS(context.Context, *MsgRequestDAS) (*MsgRequestDASResponse, error)
+	ReportDASResult(context.Context, *MsgReportDASResult) (*MsgReportDASResultResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) RequestSampling(ctx context.Context, req *MsgRequestSampling) (*MsgRequestSamplingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RequestSampling not implemented")
+func (*UnimplementedMsgServer) RequestDAS(ctx context.Context, req *MsgRequestDAS) (*MsgRequestDASResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RequestDAS not implemented")
 }
-func (*UnimplementedMsgServer) ReportSamplingResult(ctx context.Context, req *MsgReportSamplingResult) (*MsgReportSamplingResultResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReportSamplingResult not implemented")
+func (*UnimplementedMsgServer) ReportDASResult(ctx context.Context, req *MsgReportDASResult) (*MsgReportDASResultResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReportDASResult not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
 }
 
-func _Msg_RequestSampling_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgRequestSampling)
+func _Msg_RequestDAS_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRequestDAS)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).RequestSampling(ctx, in)
+		return srv.(MsgServer).RequestDAS(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/evmos.das.v1.Msg/RequestSampling",
+		FullMethod: "/evmos.das.v1.Msg/RequestDAS",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).RequestSampling(ctx, req.(*MsgRequestSampling))
+		return srv.(MsgServer).RequestDAS(ctx, req.(*MsgRequestDAS))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_ReportSamplingResult_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgReportSamplingResult)
+func _Msg_ReportDASResult_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgReportDASResult)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).ReportSamplingResult(ctx, in)
+		return srv.(MsgServer).ReportDASResult(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/evmos.das.v1.Msg/ReportSamplingResult",
+		FullMethod: "/evmos.das.v1.Msg/ReportDASResult",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).ReportSamplingResult(ctx, req.(*MsgReportSamplingResult))
+		return srv.(MsgServer).ReportDASResult(ctx, req.(*MsgReportDASResult))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -321,19 +322,19 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RequestSampling",
-			Handler:    _Msg_RequestSampling_Handler,
+			MethodName: "RequestDAS",
+			Handler:    _Msg_RequestDAS_Handler,
 		},
 		{
-			MethodName: "ReportSamplingResult",
-			Handler:    _Msg_ReportSamplingResult_Handler,
+			MethodName: "ReportDASResult",
+			Handler:    _Msg_ReportDASResult_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "evmos/das/v1/tx.proto",
 }
 
-func (m *MsgRequestSampling) Marshal() (dAtA []byte, err error) {
+func (m *MsgRequestDAS) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -343,12 +344,12 @@ func (m *MsgRequestSampling) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgRequestSampling) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRequestDAS) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRequestSampling) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRequestDAS) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -368,7 +369,7 @@ func (m *MsgRequestSampling) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgRequestSamplingResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgRequestDASResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -378,20 +379,25 @@ func (m *MsgRequestSamplingResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgRequestSamplingResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRequestDASResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgRequestSamplingResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRequestDASResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
+	if m.RequestID != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.RequestID))
+		i--
+		dAtA[i] = 0x8
+	}
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgReportSamplingResult) Marshal() (dAtA []byte, err error) {
+func (m *MsgReportDASResult) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -401,19 +407,19 @@ func (m *MsgReportSamplingResult) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgReportSamplingResult) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgReportDASResult) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgReportSamplingResult) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgReportDASResult) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if m.Result {
+	if m.Success {
 		i--
-		if m.Result {
+		if m.Success {
 			dAtA[i] = 1
 		} else {
 			dAtA[i] = 0
@@ -436,7 +442,7 @@ func (m *MsgReportSamplingResult) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgReportSamplingResultResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgReportDASResultResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -446,12 +452,12 @@ func (m *MsgReportSamplingResultResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgReportSamplingResultResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgReportDASResultResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgReportSamplingResultResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgReportDASResultResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -470,7 +476,7 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *MsgRequestSampling) Size() (n int) {
+func (m *MsgRequestDAS) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -486,16 +492,19 @@ func (m *MsgRequestSampling) Size() (n int) {
 	return n
 }
 
-func (m *MsgRequestSamplingResponse) Size() (n int) {
+func (m *MsgRequestDASResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
+	if m.RequestID != 0 {
+		n += 1 + sovTx(uint64(m.RequestID))
+	}
 	return n
 }
 
-func (m *MsgReportSamplingResult) Size() (n int) {
+func (m *MsgReportDASResult) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -508,13 +517,13 @@ func (m *MsgReportSamplingResult) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Result {
+	if m.Success {
 		n += 2
 	}
 	return n
 }
 
-func (m *MsgReportSamplingResultResponse) Size() (n int) {
+func (m *MsgReportDASResultResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -529,7 +538,7 @@ func sovTx(x uint64) (n int) {
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *MsgRequestSampling) Unmarshal(dAtA []byte) error {
+func (m *MsgRequestDAS) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -552,10 +561,10 @@ func (m *MsgRequestSampling) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRequestSampling: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRequestDAS: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRequestSampling: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRequestDAS: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -630,7 +639,7 @@ func (m *MsgRequestSampling) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgRequestSamplingResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgRequestDASResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -653,12 +662,31 @@ func (m *MsgRequestSamplingResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgRequestSamplingResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRequestDASResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgRequestSamplingResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRequestDASResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RequestID", wireType)
+			}
+			m.RequestID = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.RequestID |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -680,7 +708,7 @@ func (m *MsgRequestSamplingResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgReportSamplingResult) Unmarshal(dAtA []byte) error {
+func (m *MsgReportDASResult) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -703,10 +731,10 @@ func (m *MsgReportSamplingResult) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgReportSamplingResult: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgReportDASResult: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgReportSamplingResult: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgReportDASResult: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -762,7 +790,7 @@ func (m *MsgReportSamplingResult) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Result", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Success", wireType)
 			}
 			var v int
 			for shift := uint(0); ; shift += 7 {
@@ -779,7 +807,7 @@ func (m *MsgReportSamplingResult) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-			m.Result = bool(v != 0)
+			m.Success = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -801,7 +829,7 @@ func (m *MsgReportSamplingResult) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgReportSamplingResultResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgReportDASResultResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -824,10 +852,10 @@ func (m *MsgReportSamplingResultResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgReportSamplingResultResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgReportDASResultResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgReportSamplingResultResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgReportDASResultResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
