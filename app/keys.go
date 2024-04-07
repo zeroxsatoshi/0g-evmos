@@ -23,6 +23,7 @@ import (
 	ibctransfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
 	committeetypes "github.com/evmos/evmos/v16/x/committee/v1/types"
+	dastypes "github.com/evmos/evmos/v16/x/das/v1/types"
 	epochstypes "github.com/evmos/evmos/v16/x/epochs/types"
 	erc20types "github.com/evmos/evmos/v16/x/erc20/types"
 	evmtypes "github.com/evmos/evmos/v16/x/evm/types"
@@ -55,7 +56,7 @@ func StoreKeys() (
 		// evmos keys
 		inflationtypes.StoreKey, erc20types.StoreKey,
 		epochstypes.StoreKey, vestingtypes.StoreKey,
-		revenuetypes.StoreKey, committeetypes.StoreKey,
+		revenuetypes.StoreKey, committeetypes.StoreKey, dastypes.StoreKey,
 	}
 
 	keys := sdk.NewKVStoreKeys(storeKeys...)

@@ -145,6 +145,9 @@ import (
 	committee "github.com/evmos/evmos/v16/x/committee/v1"
 	committeekeeper "github.com/evmos/evmos/v16/x/committee/v1/keeper"
 	committeetypes "github.com/evmos/evmos/v16/x/committee/v1/types"
+	das "github.com/evmos/evmos/v16/x/das/v1"
+	daskeeper "github.com/evmos/evmos/v16/x/das/v1/keeper"
+	dastypes "github.com/evmos/evmos/v16/x/das/v1/types"
 	"github.com/evmos/evmos/v16/x/epochs"
 	epochskeeper "github.com/evmos/evmos/v16/x/epochs/keeper"
 	epochstypes "github.com/evmos/evmos/v16/x/epochs/types"
@@ -244,6 +247,7 @@ var (
 		consensus.AppModuleBasic{},
 		incentives.AppModuleBasic{},
 		committee.AppModuleBasic{},
+		das.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -318,6 +322,7 @@ type Evmos struct {
 	VestingKeeper   vestingkeeper.Keeper
 	RevenueKeeper   revenuekeeper.Keeper
 	CommitteeKeeper committeekeeper.Keeper
+	DasKeeper       daskeeper.Keeper
 
 	// the module manager
 	mm *module.Manager
@@ -617,10 +622,10 @@ func NewEvmos(
 	// If evidence needs to be handled for the app, set routes in router here and seal
 	app.EvidenceKeeper = *evidenceKeeper
 
-	// Evmos Keeper
 	app.CommitteeKeeper = committeekeeper.NewKeeper(
 		keys[committeetypes.StoreKey], appCodec, stakingKeeper,
 	)
+	app.DasKeeper = daskeeper.NewKeeper(keys[dastypes.StoreKey], appCodec)
 
 	/****  Module Options ****/
 
