@@ -240,5 +240,6 @@ evmosd start \
 	--minimum-gas-prices=0.0001aevmos \
 	--json-rpc.api eth,txpool,personal,net,debug,web3 \
 	--json-rpc.ws-address="0.0.0.0:8546" \
+    --rpc.laddr="tcp://127.0.0.1:26657" \
 	--home "$HOMEDIR" \
 	--chain-id "$CHAINID"
