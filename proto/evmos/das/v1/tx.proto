@@ -16,7 +16,7 @@ service Msg {
 }
 
 message MsgRequestDAS {
-  string from_address = 1 [(gogoproto.moretags) = "FromAddress"];
+  string requester = 1 [(gogoproto.moretags) = "Requester"];
   string batch_header_hash = 2;
   uint32 num_blobs = 3;
 }

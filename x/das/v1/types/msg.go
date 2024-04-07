@@ -10,14 +10,14 @@ var _, _ sdk.Msg = &MsgRequestDAS{}, &MsgReportDASResult{}
 
 func NewMsgRequestDAS(fromAddr sdk.AccAddress, hash string, numBlobs uint32) *MsgRequestDAS {
 	return &MsgRequestDAS{
-		FromAddress:     fromAddr.String(),
+		Requester:       fromAddr.String(),
 		BatchHeaderHash: hash,
 		NumBlobs:        numBlobs,
 	}
 }
 
 func (msg MsgRequestDAS) GetSigners() []sdk.AccAddress {
-	from, err := sdk.AccAddressFromBech32(msg.FromAddress)
+	from, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
 		panic(err)
 	}
@@ -25,7 +25,7 @@ func (msg MsgRequestDAS) GetSigners() []sdk.AccAddress {
 }
 
 func (msg MsgRequestDAS) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.FromAddress)
+	_, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "Invalid sender address (%s)", err)
 	}
