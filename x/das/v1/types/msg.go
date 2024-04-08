@@ -1,6 +1,8 @@
 package types
 
 import (
+	"encoding/hex"
+
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -27,20 +29,28 @@ func (msg MsgRequestDAS) GetSigners() []sdk.AccAddress {
 func (msg MsgRequestDAS) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Requester)
 	if err != nil {
-		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "Invalid sender address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "Invalid requester account address (%s)", err)
 	}
 
 	return nil
 }
 
 func (msg *MsgReportDASResult) GetSigners() []sdk.AccAddress {
-	sampler, err := sdk.AccAddressFromBech32(msg.Sampler)
+	samplerValAddr, err := sdk.ValAddressFromBech32(msg.Sampler)
 	if err != nil {
 		panic(err)
 	}
-	return []sdk.AccAddress{sampler}
+	accAddr, err := sdk.AccAddressFromHexUnsafe(hex.EncodeToString(samplerValAddr.Bytes()))
+	if err != nil {
+		panic(err)
+	}
+	return []sdk.AccAddress{accAddr}
 }
 
 func (msg *MsgReportDASResult) ValidateBasic() error {
+	_, err := sdk.ValAddressFromBech32(msg.Sampler)
+	if err != nil {
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "Invalid sampler validator address (%s)", err)
+	}
 	return nil
 }
