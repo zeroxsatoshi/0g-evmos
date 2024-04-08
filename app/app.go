@@ -669,6 +669,7 @@ func NewEvmos(
 			app.GetSubspace(revenuetypes.ModuleName)),
 
 		committee.NewAppModule(app.CommitteeKeeper, app.StakingKeeper),
+		das.NewAppModule(app.DasKeeper),
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -705,6 +706,7 @@ func NewEvmos(
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		committeetypes.ModuleName,
+		dastypes.ModuleName,
 	)
 
 	// NOTE: fee market module must go last in order to retrieve the block gas used.
@@ -737,6 +739,7 @@ func NewEvmos(
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		committeetypes.ModuleName,
+		dastypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -776,6 +779,7 @@ func NewEvmos(
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		committeetypes.ModuleName,
+		dastypes.ModuleName,
 	)
 
 	app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
