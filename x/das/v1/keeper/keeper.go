@@ -12,18 +12,21 @@ import (
 )
 
 type Keeper struct {
-	storeKey storetypes.StoreKey
-	cdc      codec.BinaryCodec
+	storeKey         storetypes.StoreKey
+	cdc              codec.BinaryCodec
+	stakingKeeperRef types.StakingKeeperRef
 }
 
 // NewKeeper creates a new das Keeper instance
 func NewKeeper(
 	storeKey storetypes.StoreKey,
 	cdc codec.BinaryCodec,
+	stakingKeeper types.StakingKeeperRef,
 ) Keeper {
 	return Keeper{
-		storeKey: storeKey,
-		cdc:      cdc,
+		storeKey:         storeKey,
+		cdc:              cdc,
+		stakingKeeperRef: stakingKeeper,
 	}
 }
 
@@ -156,12 +159,9 @@ func (k Keeper) GetDASResponses(ctx sdk.Context) []types.DASResponse {
 
 func (k Keeper) StoreNewDASResponse(
 	ctx sdk.Context, requestID uint64, sampler sdk.ValAddress, success bool) error {
-	_, found := k.GetDASRequest(ctx, requestID)
-	if !found {
+	if _, found := k.GetDASRequest(ctx, requestID); !found {
 		return errorsmod.Wrapf(types.ErrUnknownRequest, "%d", requestID)
 	}
-
-	// TODO: verify sampler
 
 	k.SetDASResponse(ctx, types.DASResponse{
 		ID:      requestID,

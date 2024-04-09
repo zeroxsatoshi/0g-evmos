@@ -625,7 +625,7 @@ func NewEvmos(
 	app.CommitteeKeeper = committeekeeper.NewKeeper(
 		keys[committeetypes.StoreKey], appCodec, stakingKeeper,
 	)
-	app.DasKeeper = daskeeper.NewKeeper(keys[dastypes.StoreKey], appCodec)
+	app.DasKeeper = daskeeper.NewKeeper(keys[dastypes.StoreKey], appCodec, stakingKeeper)
 
 	/****  Module Options ****/
 
