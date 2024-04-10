@@ -4,6 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/evmos/evmos/v16/x/das/v1/types"
 )
 
@@ -34,6 +35,10 @@ func (k Keeper) ReportDASResult(
 	sampler, err := sdk.ValAddressFromBech32(msg.Sampler)
 	if err != nil {
 		return nil, err
+	}
+
+	if _, found := k.stakingKeeperRef.GetValidator(ctx, sampler); !found {
+		return nil, stakingtypes.ErrNoValidatorFound
 	}
 
 	if err := k.StoreNewDASResponse(ctx, msg.RequestID, sampler, msg.Success); err != nil {
