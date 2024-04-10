@@ -57,9 +57,9 @@ func NewRequestDASCmd() *cobra.Command {
 
 func NewReportDASResultCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "report-das-result request-id success",
+		Use:   "report-das-result request-id results",
 		Short: "Report data-availability-sampling result",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.MinimumNArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -71,9 +71,14 @@ func NewReportDASResultCmd() *cobra.Command {
 				return err
 			}
 
-			success, err := strconv.ParseBool(args[1])
-			if err != nil {
-				return err
+			n := len(args) - 1
+			results := make([]bool, n)
+			for i := 0; i < n; i++ {
+				var err error
+				results[i], err = strconv.ParseBool(args[i+1])
+				if err != nil {
+					return err
+				}
 			}
 
 			// get account name by address
@@ -87,7 +92,7 @@ func NewReportDASResultCmd() *cobra.Command {
 			msg := &types.MsgReportDASResult{
 				RequestID: requestID,
 				Sampler:   samplerAddr.String(),
-				Success:   success,
+				Results:   results,
 			}
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},

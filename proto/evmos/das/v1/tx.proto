@@ -17,8 +17,9 @@ service Msg {
 
 message MsgRequestDAS {
   string requester = 1 [(gogoproto.moretags) = "Requester"];
-  string batch_header_hash = 2;
-  uint32 num_blobs = 3;
+  bytes stream_id = 2 [(gogoproto.customname) = "StreamID"];
+  string batch_header_hash = 3;
+  uint32 num_blobs = 4;
 }
 
 message MsgRequestDASResponse {
@@ -28,7 +29,7 @@ message MsgRequestDASResponse {
 message MsgReportDASResult {
   uint64 request_id = 1 [(gogoproto.customname) = "RequestID"];
   string sampler = 2;
-  bool success = 3;
+  repeated bool results = 3;
 }
 
 message MsgReportDASResultResponse {}

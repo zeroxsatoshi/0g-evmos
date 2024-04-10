@@ -41,7 +41,7 @@ func (k Keeper) ReportDASResult(
 		return nil, stakingtypes.ErrNoValidatorFound
 	}
 
-	if err := k.StoreNewDASResponse(ctx, msg.RequestID, sampler, msg.Success); err != nil {
+	if err := k.StoreNewDASResponse(ctx, msg.RequestID, sampler, msg.Results); err != nil {
 		return nil, err
 	}
 
