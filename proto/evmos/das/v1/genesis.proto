@@ -32,5 +32,5 @@ message DASResponse {
     (cosmos_proto.scalar) = "cosmos.AddressBytes",
     (gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.ValAddress"
   ];
-  bool success = 3;
+  repeated bool results = 3;
 }

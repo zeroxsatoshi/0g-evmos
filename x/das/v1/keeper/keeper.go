@@ -158,7 +158,7 @@ func (k Keeper) GetDASResponses(ctx sdk.Context) []types.DASResponse {
 }
 
 func (k Keeper) StoreNewDASResponse(
-	ctx sdk.Context, requestID uint64, sampler sdk.ValAddress, success bool) error {
+	ctx sdk.Context, requestID uint64, sampler sdk.ValAddress, results []bool) error {
 	if _, found := k.GetDASRequest(ctx, requestID); !found {
 		return errorsmod.Wrapf(types.ErrUnknownRequest, "%d", requestID)
 	}
@@ -166,7 +166,7 @@ func (k Keeper) StoreNewDASResponse(
 	k.SetDASResponse(ctx, types.DASResponse{
 		ID:      requestID,
 		Sampler: sampler,
-		Success: success,
+		Results: results,
 	})
 
 	return nil
