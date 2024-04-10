@@ -16,9 +16,10 @@ service Msg {
 }
 
 message MsgRequestDAS {
-  string requester = 1 [(gogoproto.moretags) = "Requester"];
-  string batch_header_hash = 2;
-  uint32 num_blobs = 3;
+  string requester = 1;
+  bytes stream_id = 2 [(gogoproto.moretags) = "StreamID"];
+  string batch_header_hash = 3;
+  uint32 num_blobs = 4;
 }
 
 message MsgRequestDASResponse {
