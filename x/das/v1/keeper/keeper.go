@@ -1,6 +1,8 @@
 package keeper
 
 import (
+	"strconv"
+
 	errorsmod "cosmossdk.io/errors"
 	"github.com/cometbft/cometbft/libs/log"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -99,6 +101,7 @@ func (k Keeper) GetDASRequests(ctx sdk.Context) []types.DASRequest {
 
 func (k Keeper) StoreNewDASRequest(
 	ctx sdk.Context,
+	streamID []byte,
 	batchHeaderHash string,
 	numBlobs uint32) (uint64, error) {
 	requestID, err := k.GetNextRequestID(ctx)
@@ -108,10 +111,21 @@ func (k Keeper) StoreNewDASRequest(
 
 	req := types.DASRequest{
 		ID:              requestID,
+		StreamID:        streamID,
 		BatchHeaderHash: []byte(batchHeaderHash),
 		NumBlobs:        numBlobs,
 	}
 	k.SetDASRequest(ctx, req)
+
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypeDASRequest,
+			sdk.NewAttribute(types.AttributeKeyRequestID, strconv.FormatUint(requestID, 10)),
+			sdk.NewAttribute(types.AttributeKeyStreamID, string(streamID)),
+			sdk.NewAttribute(types.AttributeKeyBatchHeaderHash, batchHeaderHash),
+			sdk.NewAttribute(types.AttributeKeyNumBlobs, strconv.FormatUint(uint64(numBlobs), 10)),
+		),
+	)
 
 	return requestID, nil
 }
