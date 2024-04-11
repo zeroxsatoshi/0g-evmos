@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"encoding/hex"
 	"strconv"
 
 	errorsmod "cosmossdk.io/errors"
@@ -101,10 +102,20 @@ func (k Keeper) GetDASRequests(ctx sdk.Context) []types.DASRequest {
 
 func (k Keeper) StoreNewDASRequest(
 	ctx sdk.Context,
-	streamID []byte,
-	batchHeaderHash string,
+	streamIDHexStr string,
+	batchHeaderHashHexStr string,
 	numBlobs uint32) (uint64, error) {
 	requestID, err := k.GetNextRequestID(ctx)
+	if err != nil {
+		return 0, err
+	}
+
+	streamID, err := hex.DecodeString(streamIDHexStr)
+	if err != nil {
+		return 0, err
+	}
+
+	batchHeaderHash, err := hex.DecodeString(batchHeaderHashHexStr)
 	if err != nil {
 		return 0, err
 	}
@@ -112,7 +123,7 @@ func (k Keeper) StoreNewDASRequest(
 	req := types.DASRequest{
 		ID:              requestID,
 		StreamID:        streamID,
-		BatchHeaderHash: []byte(batchHeaderHash),
+		BatchHeaderHash: batchHeaderHash,
 		NumBlobs:        numBlobs,
 	}
 	k.SetDASRequest(ctx, req)
@@ -121,8 +132,8 @@ func (k Keeper) StoreNewDASRequest(
 		sdk.NewEvent(
 			types.EventTypeDASRequest,
 			sdk.NewAttribute(types.AttributeKeyRequestID, strconv.FormatUint(requestID, 10)),
-			sdk.NewAttribute(types.AttributeKeyStreamID, string(streamID)),
-			sdk.NewAttribute(types.AttributeKeyBatchHeaderHash, batchHeaderHash),
+			sdk.NewAttribute(types.AttributeKeyStreamID, streamIDHexStr),
+			sdk.NewAttribute(types.AttributeKeyBatchHeaderHash, batchHeaderHashHexStr),
 			sdk.NewAttribute(types.AttributeKeyNumBlobs, strconv.FormatUint(uint64(numBlobs), 10)),
 		),
 	)
