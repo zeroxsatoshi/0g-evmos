@@ -16,7 +16,7 @@ func (k Keeper) RequestDAS(
 ) (*types.MsgRequestDASResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	requestID, err := k.StoreNewDASRequest(ctx, msg.BatchHeaderHash, msg.NumBlobs)
+	requestID, err := k.StoreNewDASRequest(ctx, msg.StreamID, msg.BatchHeaderHash, msg.NumBlobs)
 	if err != nil {
 		return nil, err
 	}

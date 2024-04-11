@@ -22,8 +22,9 @@ message GenesisState {
 
 message DASRequest {
   uint64 id = 1 [(gogoproto.customname) = "ID"];
-  bytes batch_header_hash = 2;
-  uint32 num_blobs = 3;
+  bytes stream_id = 2 [(gogoproto.customname) = "StreamID"];
+  bytes batch_header_hash = 3;
+  uint32 num_blobs = 4;
 }
 
 message DASResponse {
