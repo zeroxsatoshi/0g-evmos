@@ -31,21 +31,21 @@ func GetTxCmd() *cobra.Command {
 
 func NewRequestDASCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "request-das batch-header-hash num-blobs",
+		Use:   "request-das steram-id batch-header-hash num-blobs",
 		Short: "Request data-availability-sampling",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			numBlobs, err := strconv.Atoi(args[1])
+			numBlobs, err := strconv.Atoi(args[2])
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgRequestDAS(clientCtx.GetFromAddress(), args[0], uint32(numBlobs))
+			msg := types.NewMsgRequestDAS(clientCtx.GetFromAddress(), args[0], args[1], uint32(numBlobs))
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}

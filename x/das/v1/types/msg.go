@@ -10,9 +10,10 @@ import (
 
 var _, _ sdk.Msg = &MsgRequestDAS{}, &MsgReportDASResult{}
 
-func NewMsgRequestDAS(fromAddr sdk.AccAddress, hash string, numBlobs uint32) *MsgRequestDAS {
+func NewMsgRequestDAS(fromAddr sdk.AccAddress, streamID, hash string, numBlobs uint32) *MsgRequestDAS {
 	return &MsgRequestDAS{
 		Requester:       fromAddr.String(),
+		StreamID:        streamID,
 		BatchHeaderHash: hash,
 		NumBlobs:        numBlobs,
 	}

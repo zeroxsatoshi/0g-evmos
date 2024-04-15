@@ -20,7 +20,7 @@ func (k Keeper) RequestDAS(
 	if err != nil {
 		return nil, err
 	}
-
+	k.IncrementNextRequestID(ctx)
 	return &types.MsgRequestDASResponse{
 		RequestID: requestID,
 	}, nil
