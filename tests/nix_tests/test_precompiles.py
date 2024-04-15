@@ -38,7 +38,7 @@ def test_ibc_transfer(ibc):
 
     cli = ibc.chains["evmos"].cosmos_cli()
     src_addr = cli.address("signer2")
-    src_denom = "aevmos"
+    src_denom = "neuron"
 
     old_src_balance = get_balance(ibc.chains["evmos"], src_addr, src_denom)
     old_dst_balance = get_balance(ibc.chains["chainmain"], dst_addr, EVMOS_IBC_DENOM)
@@ -106,7 +106,7 @@ def test_ibc_transfer_invalid_packet(ibc):
 
     cli = ibc.chains["evmos"].cosmos_cli()
     src_addr = cli.address("signer2")
-    src_denom = "aevmos"
+    src_denom = "neuron"
 
     old_src_balance = get_balance(ibc.chains["evmos"], src_addr, src_denom)
 
@@ -149,7 +149,7 @@ def test_ibc_transfer_timeout(ibc):
 
     cli = ibc.chains["evmos"].cosmos_cli()
     src_addr = cli.address("signer2")
-    src_denom = "aevmos"
+    src_denom = "neuron"
 
     old_src_balance = get_balance(ibc.chains["evmos"], src_addr, src_denom)
 
@@ -183,7 +183,7 @@ def test_staking(ibc):
     amt = 1000000
     cli = evmos.cosmos_cli()
     del_addr = cli.address("signer2")
-    src_denom = "aevmos"
+    src_denom = "neuron"
     validator_addr = cli.validators()[0]["operator_address"]
 
     old_src_balance = get_balance(evmos, del_addr, src_denom)
@@ -220,7 +220,7 @@ def test_staking_via_sc(ibc):
     amt = 1000000
     cli = evmos.cosmos_cli()
     del_addr = cli.address("signer1")
-    src_denom = "aevmos"
+    src_denom = "neuron"
     validator_addr = cli.validators()[0]["operator_address"]
 
     old_src_balance = get_balance(evmos, del_addr, src_denom)

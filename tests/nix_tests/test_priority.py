@@ -159,29 +159,29 @@ def test_native_tx_priority(evmos_cluster):
         {
             "from": eth_to_bech32(ADDRS["community"]),
             "to": eth_to_bech32(ADDRS["validator"]),
-            "amount": "1000aevmos",
-            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 600000}aevmos",
+            "amount": "1000neuron",
+            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 600000}neuron",
             "max_priority_price": 0,
         },
         {
             "from": eth_to_bech32(ADDRS["signer1"]),
             "to": eth_to_bech32(ADDRS["signer2"]),
-            "amount": "1000aevmos",
-            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 600000}aevmos",
+            "amount": "1000neuron",
+            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 600000}neuron",
             "max_priority_price": PRIORITY_REDUCTION * 200000,
         },
         {
             "from": eth_to_bech32(ADDRS["signer2"]),
             "to": eth_to_bech32(ADDRS["signer1"]),
-            "amount": "1000aevmos",
-            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 400000}aevmos",
+            "amount": "1000neuron",
+            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 400000}neuron",
             "max_priority_price": PRIORITY_REDUCTION * 400000,
         },
         {
             "from": eth_to_bech32(ADDRS["validator"]),
             "to": eth_to_bech32(ADDRS["community"]),
-            "amount": "1000aevmos",
-            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 600000}aevmos",
+            "amount": "1000neuron",
+            "gas_prices": f"{base_fee + PRIORITY_REDUCTION * 600000}neuron",
             "max_priority_price": None,  # no extension, maximum tipFeeCap
         },
     ]
@@ -200,7 +200,7 @@ def test_native_tx_priority(evmos_cluster):
                 tx, tc["from"], max_priority_price=tc.get("max_priority_price")
             )
         )
-        gas_price = int(tc["gas_prices"].removesuffix("aevmos"))
+        gas_price = int(tc["gas_prices"].removesuffix("neuron"))
         expect_priorities.append(
             min(
                 get_max_priority_price(tc.get("max_priority_price")),
