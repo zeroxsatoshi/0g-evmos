@@ -121,14 +121,14 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 	# Set moniker and chain-id for Evmos (Moniker can be anything, chain-id must be an integer)
 	evmosd init $MONIKER -o --chain-id "$CHAINID" --home "$HOMEDIR"
 
-	# Change parameter token denominations to aevmos
-	jq '.app_state["staking"]["params"]["bond_denom"]="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-	jq '.app_state["crisis"]["constant_fee"]["denom"]="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-	jq '.app_state["gov"]["deposit_params"]["min_deposit"][0]["denom"]="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	# Change parameter token denominations to neuron
+	jq '.app_state["staking"]["params"]["bond_denom"]="neuron"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	jq '.app_state["crisis"]["constant_fee"]["denom"]="neuron"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	jq '.app_state["gov"]["deposit_params"]["min_deposit"][0]["denom"]="neuron"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 	# When upgrade to cosmos-sdk v0.47, use gov.params to edit the deposit params
-	jq '.app_state["gov"]["params"]["min_deposit"][0]["denom"]="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-	jq '.app_state["evm"]["params"]["evm_denom"]="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-	jq '.app_state["inflation"]["params"]["mint_denom"]="aevmos"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	jq '.app_state["gov"]["params"]["min_deposit"][0]["denom"]="neuron"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	jq '.app_state["evm"]["params"]["evm_denom"]="neuron"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	jq '.app_state["inflation"]["params"]["mint_denom"]="neuron"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 	# Set gas limit in genesis
 	jq '.consensus_params["block"]["max_gas"]="10000000"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
@@ -147,7 +147,7 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 
 	# Claim module account:
 	# 0xA61808Fe40fEb8B3433778BBC2ecECCAA47c8c47 || evmos15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz
-	jq -r --arg amount_to_claim "$amount_to_claim" '.app_state["bank"]["balances"] += [{"address":"evmos15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz","coins":[{"denom":"aevmos", "amount":$amount_to_claim}]}]' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	jq -r --arg amount_to_claim "$amount_to_claim" '.app_state["bank"]["balances"] += [{"address":"evmos15cvq3ljql6utxseh0zau9m8ve2j8erz89m5wkz","coins":[{"denom":"neuron", "amount":$amount_to_claim}]}]' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 	# Set base fee in genesis
 	jq '.app_state["feemarket"]["params"]["base_fee"]="'${BASEFEE}'"' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
@@ -201,11 +201,11 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 	sed -i.bak 's/pruning-interval = "0"/pruning-interval = "10"/g' "$APP_TOML"
 
 	# Allocate genesis accounts (cosmos formatted addresses)
-	evmosd add-genesis-account "$(evmosd keys show "$VAL_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 100000000000000000000000000aevmos --keyring-backend "$KEYRING" --home "$HOMEDIR"
-	evmosd add-genesis-account "$(evmosd keys show "$USER1_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000aevmos --keyring-backend "$KEYRING" --home "$HOMEDIR"
-	evmosd add-genesis-account "$(evmosd keys show "$USER2_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000aevmos --keyring-backend "$KEYRING" --home "$HOMEDIR"
-	evmosd add-genesis-account "$(evmosd keys show "$USER3_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000aevmos --keyring-backend "$KEYRING" --home "$HOMEDIR"
-	evmosd add-genesis-account "$(evmosd keys show "$USER4_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000aevmos --keyring-backend "$KEYRING" --home "$HOMEDIR"
+	evmosd add-genesis-account "$(evmosd keys show "$VAL_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 100000000000000000000000000neuron --keyring-backend "$KEYRING" --home "$HOMEDIR"
+	evmosd add-genesis-account "$(evmosd keys show "$USER1_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000neuron --keyring-backend "$KEYRING" --home "$HOMEDIR"
+	evmosd add-genesis-account "$(evmosd keys show "$USER2_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000neuron --keyring-backend "$KEYRING" --home "$HOMEDIR"
+	evmosd add-genesis-account "$(evmosd keys show "$USER3_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000neuron --keyring-backend "$KEYRING" --home "$HOMEDIR"
+	evmosd add-genesis-account "$(evmosd keys show "$USER4_KEY" -a --keyring-backend "$KEYRING" --home "$HOMEDIR")" 1000000000000000000000neuron --keyring-backend "$KEYRING" --home "$HOMEDIR"
 
 	# bc is required to add these big numbers
 	# NOTE: we have the validator account (1e26) plus 4 (1e21) accounts
@@ -214,7 +214,7 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 	jq -r --arg total_supply "$total_supply" '.app_state["bank"]["supply"][0]["amount"]=$total_supply' "$GENESIS" >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 	# Sign genesis transaction
-	evmosd gentx "$VAL_KEY" 1000000000000000000000aevmos --gas-prices ${BASEFEE}aevmos --keyring-backend "$KEYRING" --chain-id "$CHAINID" --home "$HOMEDIR"
+	evmosd gentx "$VAL_KEY" 1000000000000000000000neuron --gas-prices ${BASEFEE}neuron --keyring-backend "$KEYRING" --chain-id "$CHAINID" --home "$HOMEDIR"
 	## In case you want to create multiple validators at genesis
 	## 1. Back to `evmosd keys add` step, init more keys
 	## 2. Back to `evmosd add-genesis-account` step, add balance for those
@@ -237,7 +237,7 @@ fi
 evmosd start \
 	--metrics "$TRACE" \
 	--log_level $LOGLEVEL \
-	--minimum-gas-prices=0.0001aevmos \
+	--minimum-gas-prices=0.0001neuron \
 	--json-rpc.api eth,txpool,personal,net,debug,web3 \
 	--json-rpc.ws-address="0.0.0.0:8546" \
     --rpc.laddr="tcp://127.0.0.1:26657" \

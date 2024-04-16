@@ -33,8 +33,8 @@ def test_liquid_stake(ibc):
     cli = ibc.chains["evmos"].cosmos_cli()
     src_addr = cli.address("signer2")
     sender_addr = ADDRS["signer2"]
-    src_denom = "aevmos"
-    st_token = "staevmos"
+    src_denom = "neuron"
+    st_token = "stneuron"
     amt = 1000000000000000000
 
     dst_addr = ibc.chains["stride"].cosmos_cli().address("signer2")
@@ -92,6 +92,6 @@ def test_liquid_stake(ibc):
     wait_for_fn("balance change", check_balance_change)
     assert old_dst_balance + amt == new_dst_balance
     new_src_balance = get_balance(ibc.chains["evmos"], src_addr, src_denom)
-    # NOTE the 'amt' is deducted from the 'aevmos' native coin
+    # NOTE the 'amt' is deducted from the 'neuron' native coin
     # not from WEVMOS balance
     assert old_src_balance - amt - fee == new_src_balance

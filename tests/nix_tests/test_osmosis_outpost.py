@@ -52,7 +52,7 @@ def test_osmosis_swap(ibc):
     osmosis_addr = osmosis_cli.address("signer2")
     amt = 100
     # the expected amount to get after swapping
-    # 100aevmos is 98uosmo
+    # 100neuron is 98uosmo
     exp_swap_amount = 98
 
     xcs_contract = setup_osmos_chains(ibc)
@@ -158,7 +158,7 @@ def setup_osmos_chains(ibc):
     # =================================
 
     # in the router one execute function `set_route` to have a route for evmos within the swap router contract
-    # set input 'aevmos', output 'uosmo' route
+    # set input 'neuron', output 'uosmo' route
     set_swap_route(
         osmosis_cli, osmosis_addr, swap_contract_addr, pool_id, EVMOS_IBC_DENOM, "uosmo"
     )
@@ -175,7 +175,7 @@ def send_evmos_to_osmos(ibc):
 
     cli = src_chain.cosmos_cli()
     src_addr = cli.address("signer2")
-    src_denom = "aevmos"
+    src_denom = "neuron"
 
     old_src_balance = get_balance(src_chain, src_addr, src_denom)
     old_dst_balance = get_balance(dst_chain, dst_addr, EVMOS_IBC_DENOM)
@@ -272,7 +272,7 @@ def register_osmo_token(evmos):
         "title": "Register Osmosis ERC20 token",
         "description": "The IBC representation of OSMO on Evmos chain",
         "metadata": [ERC_OSMO_META],
-        "deposit": "1aevmos",
+        "deposit": "1neuron",
     }
     proposal_id = register_ibc_coin(evmos_cli, proposal)
     assert (

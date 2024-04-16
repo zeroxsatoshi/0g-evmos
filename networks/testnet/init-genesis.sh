@@ -43,15 +43,15 @@ for ((i=0; i<$NUM_NODES; i++)) do
 	# Init
 	evmosd init "node$i" --home "$HOMEDIR" --chain-id "$CHAIN_ID" >/dev/null 2>&1
 	
-	# Change parameter token denominations to aevmos
+	# Change parameter token denominations to neuron
 	GENESIS="$HOMEDIR"/config/genesis.json
 	TMP_GENESIS="$HOMEDIR"/config/tmp_genesis.json
-	cat "$GENESIS" | jq '.app_state["staking"]["params"]["bond_denom"]="aevmos"' >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
-	cat "$GENESIS" | jq '.app_state["gov"]["params"]["min_deposit"][0]["denom"]="aevmos"' >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	cat "$GENESIS" | jq '.app_state["staking"]["params"]["bond_denom"]="neuron"' >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
+	cat "$GENESIS" | jq '.app_state["gov"]["params"]["min_deposit"][0]["denom"]="neuron"' >"$TMP_GENESIS" && mv "$TMP_GENESIS" "$GENESIS"
 
 	# Change app.toml
 	APP_TOML="$HOMEDIR"/config/app.toml
-	sed -i 's/minimum-gas-prices = "0aevmos"/minimum-gas-prices = "1000000000aevmos"/' "$APP_TOML"
+	sed -i 's/minimum-gas-prices = "0neuron"/minimum-gas-prices = "1000000000neuron"/' "$APP_TOML"
 	sed -i '/\[json-rpc\]/,/^\[/ s/enable = false/enable = true/' "$APP_TOML"
 	sed -i '/\[json-rpc\]/,/^\[/ s/address = "127.0.0.1:8545"/address = "0.0.0.0:8545"/' "$APP_TOML"
 done
