@@ -290,7 +290,7 @@ func TestGetSentCoin(t *testing.T) {
 			"get ibc wrapped neuron coin",
 			"transfer/channel-0/neuron",
 			"10",
-			sdk.Coin{Denom: teststypes.neuronIbcdenom, Amount: math.NewInt(10)},
+			sdk.Coin{Denom: teststypes.NeuronIbcdenom, Amount: math.NewInt(10)},
 		},
 		{
 			"get ibc wrapped uosmo coin",

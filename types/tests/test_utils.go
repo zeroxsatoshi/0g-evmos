@@ -32,9 +32,9 @@ var (
 	}
 	UatomOsmoIbcdenom = UatomOsmoDenomtrace.IBCDenom()
 
-	neuronDenomtrace = transfertypes.DenomTrace{
+	NeuronDenomtrace = transfertypes.DenomTrace{
 		Path:      "transfer/channel-0",
 		BaseDenom: "neuron",
 	}
-	neuronIbcdenom = neuronDenomtrace.IBCDenom()
+	NeuronIbcdenom = NeuronDenomtrace.IBCDenom()
 )

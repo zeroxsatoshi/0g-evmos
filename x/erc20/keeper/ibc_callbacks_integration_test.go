@@ -52,13 +52,13 @@ var _ = Describe("Convert receiving IBC to Erc20", Ordered, func() {
 		Base:        utils.BaseDenom,
 		DenomUnits: []*banktypes.DenomUnit{
 			{
-				Denom:    teststypes.neuronDenomtrace.BaseDenom,
+				Denom:    teststypes.NeuronDenomtrace.BaseDenom,
 				Exponent: 0,
 			},
 		},
 		Name:    utils.BaseDenom,
 		Symbol:  erc20Symbol,
-		Display: teststypes.neuronDenomtrace.BaseDenom,
+		Display: teststypes.NeuronDenomtrace.BaseDenom,
 	}
 
 	BeforeEach(func() {
@@ -162,15 +162,15 @@ var _ = Describe("Convert receiving IBC to Erc20", Ordered, func() {
 			s.Require().Equal(neuronInitialBalance.Amount.Sub(math.NewInt(amount)).Sub(sendAndReceiveMsgFee), neuronAfterBalance.Amount)
 
 			// check ibc neuron coins balance on Osmosis
-			neuronIBCBalanceBefore := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.neuronIbcdenom)
+			neuronIBCBalanceBefore := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.NeuronIbcdenom)
 			s.Require().Equal(amount, neuronIBCBalanceBefore.Amount.Int64())
 
 			// 2. Send neuron IBC coins from Osmosis to Evmos
-			ibcCoinMeta := fmt.Sprintf("%s/%s", teststypes.neuronDenomtrace.Path, teststypes.neuronDenomtrace.BaseDenom)
-			s.SendBackCoins(s.pathOsmosisEvmos, s.IBCOsmosisChain, teststypes.neuronIbcdenom, amount, sender, receiver, 1, ibcCoinMeta)
+			ibcCoinMeta := fmt.Sprintf("%s/%s", teststypes.NeuronDenomtrace.Path, teststypes.NeuronDenomtrace.BaseDenom)
+			s.SendBackCoins(s.pathOsmosisEvmos, s.IBCOsmosisChain, teststypes.NeuronIbcdenom, amount, sender, receiver, 1, ibcCoinMeta)
 
 			// check ibc neuron coins balance on Osmosis - should be zero
-			neuronIBCSenderFinalBalance := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.neuronIbcdenom)
+			neuronIBCSenderFinalBalance := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.NeuronIbcdenom)
 			s.Require().Equal(int64(0), neuronIBCSenderFinalBalance.Amount.Int64())
 
 			// check neuron balance after transfer - should be equal to initial balance
@@ -180,7 +180,7 @@ var _ = Describe("Convert receiving IBC to Erc20", Ordered, func() {
 			s.Require().Equal(neuronInitialBalance.Amount.Sub(totalFees), neuronFinalBalance.Amount)
 
 			// check IBC Coin balance - should be zero
-			ibcCoinsBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, teststypes.neuronIbcdenom)
+			ibcCoinsBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, teststypes.NeuronIbcdenom)
 			s.Require().Equal(int64(0), ibcCoinsBalance.Amount.Int64())
 
 			// Check ERC20 balances - should be zero
